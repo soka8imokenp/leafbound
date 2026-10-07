@@ -10,7 +10,8 @@ var frame := 0
 func _ready() -> void:
 	out = OS.get_environment("LB_AUTOTEST")
 	record = OS.get_environment("LB_RECORD") != ""
-	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+	if OS.get_environment("LB_LOWRES") != "":
+		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	_run.call_deferred()
 
 
@@ -76,7 +77,7 @@ func _run() -> void:
 	await _press("interact")
 	await _wait(0.5)
 	await _shot("04_cat_dialog")
-	await _dialog_through(2)
+	await _dialog_through(3)
 	await _wait(0.3)
 	_hold("move_left", 1.25)
 	await _wait(1.4)
@@ -84,11 +85,13 @@ func _run() -> void:
 	await _shot("05_by_bed")
 	await _press("interact")
 	await _dialog_through(2)
-	await _wait(1.0)
-	await _shot("06_fade")
-	await _wait(3.2)
-	await _shot("07_night_wake")
-	await _dialog_through(1)
+	await _wait(2.0)
+	await _shot("06_sleeping")
+	await _wait(6.6)
+	await _shot("07_night_sleeping")
+	await _wait(2.4)
+	await _shot("07b_woke_up")
+	await _dialog_through(2)
 	_hold("move_down", 0.9)
 	await _wait(1.2)
 	await _shot("08_night_walk")

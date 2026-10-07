@@ -1,216 +1,128 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_y6deb"]
-[ext_resource type="Texture2D" path="res://art/room_bg.png" id="2_og1vs"]
-[ext_resource type="Texture2D" path="res://art/ase/bed_0.png" id="3_2wyq8"]
-[ext_resource type="Texture2D" path="res://art/ase/table_0.png" id="4_vxglm"]
-[ext_resource type="Script" path="res://scripts/stove.gd" id="5_2f3dj"]
-[ext_resource type="Texture2D" path="res://art/stove_fire.png" id="6_yq6so"]
-[ext_resource type="Texture2D" path="res://art/px2.png" id="7_fv21b"]
-[ext_resource type="AudioStream" path="res://sfx/crackle.wav" id="8_tel4y"]
-[ext_resource type="Script" path="res://scripts/cat.gd" id="9_qkpxi"]
-[ext_resource type="Texture2D" path="res://art/cat_breath.png" id="10_5q0nq"]
-[ext_resource type="Texture2D" path="res://art/z.png" id="11_dgi5k"]
-[ext_resource type="Texture2D" path="res://art/heart.png" id="12_j8jky"]
-[ext_resource type="AudioStream" path="res://sfx/purr.wav" id="13_kmb1v"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="14_fuf3a"]
-[ext_resource type="Texture2D" path="res://art/shadow.png" id="15_pibwh"]
-[ext_resource type="Texture2D" path="res://art/anzu_sheet.png" id="16_c6pm6"]
-[ext_resource type="Texture2D" path="res://art/key_e.png" id="17_5he1u"]
-[ext_resource type="FontFile" path="res://fonts/Rubik.ttf" id="18_5poiv"]
-[ext_resource type="AudioStream" path="res://sfx/step.wav" id="19_2cjbq"]
-[ext_resource type="Script" path="res://scripts/interactable.gd" id="20_chjal"]
-[ext_resource type="AudioStream" path="res://sfx/static.wav" id="21_cjqg0"]
-[ext_resource type="Script" path="res://scripts/dialog.gd" id="22_vchkt"]
-[ext_resource type="AudioStream" path="res://sfx/blip.wav" id="23_txyw0"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="24_vc5cj"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_2wyq8"]
+[ext_resource type="Texture2D" path="res://art/room_bg.png" id="2_vxglm"]
+[ext_resource type="Texture2D" path="res://art/ase/bed_0.png" id="3_2f3dj"]
+[ext_resource type="Texture2D" path="res://art/anzu_sleep.png" id="4_yq6so"]
+[ext_resource type="Texture2D" path="res://art/bed_blanket.png" id="5_fv21b"]
+[ext_resource type="Texture2D" path="res://art/z.png" id="6_tel4y"]
+[ext_resource type="Texture2D" path="res://art/ase/table_0.png" id="7_qkpxi"]
+[ext_resource type="Script" path="res://scripts/stove.gd" id="8_5q0nq"]
+[ext_resource type="Texture2D" path="res://art/stove_fire.png" id="9_dgi5k"]
+[ext_resource type="Texture2D" path="res://art/px2.png" id="10_j8jky"]
+[ext_resource type="AudioStream" path="res://sfx/crackle.wav" id="11_kmb1v"]
+[ext_resource type="Script" path="res://scripts/cat.gd" id="12_fuf3a"]
+[ext_resource type="Texture2D" path="res://art/cat_breath.png" id="13_pibwh"]
+[ext_resource type="Texture2D" path="res://art/heart.png" id="14_c6pm6"]
+[ext_resource type="AudioStream" path="res://sfx/purr.wav" id="15_5he1u"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="16_5poiv"]
+[ext_resource type="Texture2D" path="res://art/shadow.png" id="17_2cjbq"]
+[ext_resource type="Texture2D" path="res://art/anzu_sheet_hd.png" id="18_chjal"]
+[ext_resource type="Texture2D" path="res://art/key_e.png" id="19_cjqg0"]
+[ext_resource type="FontFile" path="res://fonts/Rubik.ttf" id="20_vchkt"]
+[ext_resource type="AudioStream" path="res://sfx/step.wav" id="21_txyw0"]
+[ext_resource type="Script" path="res://scripts/interactable.gd" id="22_vc5cj"]
+[ext_resource type="AudioStream" path="res://sfx/static.wav" id="23_nvyfr"]
+[ext_resource type="Script" path="res://scripts/dialog.gd" id="24_ty1g6"]
+[ext_resource type="AudioStream" path="res://sfx/blip.wav" id="25_j2jfr"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="26_bjg73"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvyfr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu4jf"]
 size = Vector2(60, 72)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty1g6"]
+[sub_resource type="Gradient" id="Gradient_o7ddy"]
+offsets = PackedFloat32Array(0, 1, 0.3)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0loja"]
 size = Vector2(92, 36)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2jfr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ids8r"]
 size = Vector2(34, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjg73"]
-atlas = ExtResource("6_yq6so")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnhof"]
+atlas = ExtResource("9_dgi5k")
 region = Rect2(0, 0, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bu4jf"]
-atlas = ExtResource("6_yq6so")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v6qk"]
+atlas = ExtResource("9_dgi5k")
 region = Rect2(32, 0, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o7ddy"]
-atlas = ExtResource("6_yq6so")
+[sub_resource type="AtlasTexture" id="AtlasTexture_augu2"]
+atlas = ExtResource("9_dgi5k")
 region = Rect2(64, 0, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0loja"]
-atlas = ExtResource("6_yq6so")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm6hj"]
+atlas = ExtResource("9_dgi5k")
 region = Rect2(96, 0, 32, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ids8r"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_kf5aa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bjg73")
+"texture": SubResource("AtlasTexture_dnhof")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bu4jf")
+"texture": SubResource("AtlasTexture_1v6qk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o7ddy")
+"texture": SubResource("AtlasTexture_augu2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0loja")
+"texture": SubResource("AtlasTexture_tm6hj")
 }],
 "loop": 1,
 "name": &"fire",
 "speed": 7.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_dnhof"]
+[sub_resource type="Gradient" id="Gradient_t5ykj"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1v6qk"]
-gradient = SubResource("Gradient_dnhof")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e755i"]
+gradient = SubResource("Gradient_t5ykj")
 width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_augu2"]
+[sub_resource type="Gradient" id="Gradient_ro3en"]
 offsets = PackedFloat32Array(0, 1, 0.12)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.7)
 
-[sub_resource type="Gradient" id="Gradient_tm6hj"]
+[sub_resource type="Gradient" id="Gradient_od4ux"]
 offsets = PackedFloat32Array(0, 1, 0.12)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.7)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf5aa"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfw6"]
 size = Vector2(28, 14)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t5ykj"]
-atlas = ExtResource("10_5q0nq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1epgm"]
+atlas = ExtResource("13_pibwh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e755i"]
-atlas = ExtResource("10_5q0nq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_152kg"]
+atlas = ExtResource("13_pibwh")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ro3en"]
-atlas = ExtResource("10_5q0nq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4e17"]
+atlas = ExtResource("13_pibwh")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_od4ux"]
-atlas = ExtResource("10_5q0nq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_y57op"]
+atlas = ExtResource("13_pibwh")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xhfw6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_mlv25"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t5ykj")
+"texture": SubResource("AtlasTexture_1epgm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e755i")
+"texture": SubResource("AtlasTexture_152kg")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ro3en")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_od4ux")
-}],
-"loop": 1,
-"name": &"breath",
-"speed": 1.6
-}]
-
-[sub_resource type="Gradient" id="Gradient_1epgm"]
-offsets = PackedFloat32Array(0, 1, 0.3)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.75)
-
-[sub_resource type="Gradient" id="Gradient_152kg"]
-offsets = PackedFloat32Array(0, 1, 0.1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r4e17"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y57op"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mlv25"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a82wo"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gdvew"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kjtvk"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(192, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xrs0c"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xljpf"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j4bwh"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ksmap"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ygd8o"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(128, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2s0kr"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(192, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xaipn"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ndrjj"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ih3m7"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(0, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_11yus"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(64, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b6ruc"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(128, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_155or"]
-atlas = ExtResource("16_c6pm6")
-region = Rect2(192, 192, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vtx2l"]
-animations = [{
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r4e17")
 }, {
@@ -218,38 +130,107 @@ animations = [{
 "texture": SubResource("AtlasTexture_y57op")
 }],
 "loop": 1,
+"name": &"breath",
+"speed": 1.6
+}]
+
+[sub_resource type="Gradient" id="Gradient_a82wo"]
+offsets = PackedFloat32Array(0, 1, 0.3)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.75)
+
+[sub_resource type="Gradient" id="Gradient_gdvew"]
+offsets = PackedFloat32Array(0, 1, 0.1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjtvk"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrs0c"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xljpf"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4bwh"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksmap"]
+atlas = ExtResource("18_chjal")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygd8o"]
+atlas = ExtResource("18_chjal")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s0kr"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaipn"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndrjj"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih3m7"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11yus"]
+atlas = ExtResource("18_chjal")
+region = Rect2(256, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6ruc"]
+atlas = ExtResource("18_chjal")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_155or"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtx2l"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63lxy"]
+atlas = ExtResource("18_chjal")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjhjs"]
+atlas = ExtResource("18_chjal")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfu41"]
+atlas = ExtResource("18_chjal")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4ag1"]
+atlas = ExtResource("18_chjal")
+region = Rect2(384, 384, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0wtd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjtvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrs0c")
+}],
+"loop": 1,
 "name": &"down_idle",
 "speed": 1.5
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mlv25")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a82wo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gdvew")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kjtvk")
-}],
-"loop": 1,
-"name": &"down_walk",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xrs0c")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_xljpf")
-}],
-"loop": 1,
-"name": &"side_idle",
-"speed": 1.5
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j4bwh")
 }, {
@@ -258,26 +239,26 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ygd8o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2s0kr")
 }],
 "loop": 1,
-"name": &"side_walk",
+"name": &"down_walk",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xaipn")
+"texture": SubResource("AtlasTexture_2s0kr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ndrjj")
+"texture": SubResource("AtlasTexture_xaipn")
 }],
 "loop": 1,
-"name": &"up_idle",
+"name": &"side_idle",
 "speed": 1.5
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndrjj")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ih3m7")
 }, {
@@ -286,92 +267,117 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b6ruc")
+}],
+"loop": 1,
+"name": &"side_walk",
+"speed": 8.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_155or")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtx2l")
+}],
+"loop": 1,
+"name": &"up_idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63lxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjhjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfu41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4ag1")
 }],
 "loop": 1,
 "name": &"up_walk",
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_63lxy"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgvw8"]
 size = Vector2(10, 5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fjhjs"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6nfnn"]
 radius = 9.0
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_bfu41"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4ue30"]
 a = Vector2(44, 95)
 b = Vector2(208, 95)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_r4ag1"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_k42av"]
 a = Vector2(208, 95)
 b = Vector2(236, 238)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_v0wtd"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_gr8w0"]
 a = Vector2(236, 238)
 b = Vector2(24, 238)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_sgvw8"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_673bd"]
 a = Vector2(24, 238)
 b = Vector2(44, 95)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nfnn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_akjxb"]
 size = Vector2(28, 18)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ue30"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrx01"]
 size = Vector2(26, 76)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k42av"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uevf"]
 size = Vector2(46, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gr8w0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tc087"]
 size = Vector2(68, 70)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_673bd"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73205"]
 size = Vector2(30, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_akjxb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tljd"]
 size = Vector2(14, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrx01"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgpkq"]
 size = Vector2(44, 12)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uevf"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmrkg"]
 size = Vector2(40, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tc087"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvlrk"]
 size = Vector2(10, 76)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_73205"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_engxj"]
 size = Vector2(104, 46)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tljd"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_raiwf"]
 size = Vector2(46, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgpkq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_roort"]
 size = Vector2(16, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmrkg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm02q"]
 size = Vector2(28, 20)
 
-[sub_resource type="Gradient" id="Gradient_wvlrk"]
+[sub_resource type="Gradient" id="Gradient_07pt3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_engxj"]
-gradient = SubResource("Gradient_wvlrk")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_37xlc"]
+gradient = SubResource("Gradient_07pt3")
 width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_raiwf"]
+[sub_resource type="Gradient" id="Gradient_83607"]
 offsets = PackedFloat32Array(0, 1, 0.5)
 colors = PackedColorArray(1, 0.95, 0.75, 0, 1, 0.95, 0.75, 0, 1, 0.95, 0.75, 0.7)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_roort"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vny5k"]
 bg_color = Color(0.16, 0.11, 0.08, 0.94)
 border_width_left = 2
 border_width_top = 2
@@ -383,7 +389,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gm02q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lcmr"]
 bg_color = Color(0.55, 0.3, 0.14, 1)
 border_width_left = 1
 border_width_top = 1
@@ -395,18 +401,18 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="Main" type="Node2D" unique_id=807888903]
-script = ExtResource("1_y6deb")
+[node name="Main" type="Node2D" unique_id=476522202]
+script = ExtResource("1_2wyq8")
 
-[node name="Tint" type="CanvasModulate" parent="." unique_id=235568076]
-color = Color(0.9, 0.84, 0.78, 1)
+[node name="Tint" type="CanvasModulate" parent="." unique_id=1932532380]
+color = Color(0.84, 0.78, 0.74, 1)
 
-[node name="Room" type="Sprite2D" parent="." unique_id=1022006281]
+[node name="Room" type="Sprite2D" parent="." unique_id=1162913771]
 z_index = -10
-texture = ExtResource("2_og1vs")
+texture = ExtResource("2_vxglm")
 centered = false
 
-[node name="NightGlass" type="ColorRect" parent="." unique_id=2124359161]
+[node name="NightGlass" type="ColorRect" parent="." unique_id=1187250343]
 z_index = -9
 offset_left = 107.0
 offset_top = 42.0
@@ -415,7 +421,7 @@ offset_bottom = 72.0
 mouse_filter = 2
 color = Color(0.08, 0.1, 0.22, 0)
 
-[node name="RadioLed" type="ColorRect" parent="." unique_id=482342498]
+[node name="RadioLed" type="ColorRect" parent="." unique_id=546975261]
 z_index = -9
 offset_left = 121.0
 offset_top = 87.0
@@ -423,58 +429,88 @@ offset_right = 122.0
 offset_bottom = 88.0
 color = Color(0.55, 1, 0.45, 1)
 
-[node name="World" type="Node2D" parent="." unique_id=1782228029]
+[node name="World" type="Node2D" parent="." unique_id=793634076]
 y_sort_enabled = true
 
-[node name="Bed" type="StaticBody2D" parent="World" unique_id=1647185135]
+[node name="Bed" type="StaticBody2D" parent="World" unique_id=322174497]
 position = Vector2(65, 168)
 
-[node name="Shape" type="CollisionShape2D" parent="World/Bed" unique_id=137822102]
+[node name="Shape" type="CollisionShape2D" parent="World/Bed" unique_id=44641317]
 position = Vector2(1, -38)
-shape = SubResource("RectangleShape2D_nvyfr")
+shape = SubResource("RectangleShape2D_bu4jf")
 
-[node name="Sprite" type="Sprite2D" parent="World/Bed" unique_id=1415078041]
+[node name="Sprite" type="Sprite2D" parent="World/Bed" unique_id=1469426948]
 position = Vector2(-32, -96)
-texture = ExtResource("3_2wyq8")
+texture = ExtResource("3_2f3dj")
 centered = false
 
-[node name="Table" type="StaticBody2D" parent="World" unique_id=1843291657]
+[node name="Sleeper" type="Node2D" parent="World/Bed" unique_id=1427845443]
+visible = false
+position = Vector2(-32, -96)
+
+[node name="Head" type="Sprite2D" parent="World/Bed/Sleeper" unique_id=45406795]
+self_modulate = Color(1.12, 1.1, 1.08, 1)
+position = Vector2(0, 9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_yq6so")
+centered = false
+
+[node name="Blanket" type="Sprite2D" parent="World/Bed/Sleeper" unique_id=1513225016]
+texture = ExtResource("5_fv21b")
+centered = false
+
+[node name="Zzz" type="CPUParticles2D" parent="World/Bed/Sleeper" unique_id=649562585]
+position = Vector2(46, 14)
+amount = 3
+texture = ExtResource("6_tel4y")
+lifetime = 2.6
+direction = Vector2(0.6, -1)
+spread = 12.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 6.0
+scale_amount_min = 0.7
+scale_amount_max = 1.1
+color_ramp = SubResource("Gradient_o7ddy")
+
+[node name="Table" type="StaticBody2D" parent="World" unique_id=1028336515]
 position = Vector2(98, 240)
 
-[node name="Shape" type="CollisionShape2D" parent="World/Table" unique_id=239788688]
+[node name="Shape" type="CollisionShape2D" parent="World/Table" unique_id=1617293567]
 position = Vector2(0, -24)
-shape = SubResource("RectangleShape2D_ty1g6")
+shape = SubResource("RectangleShape2D_0loja")
 
-[node name="Sprite" type="Sprite2D" parent="World/Table" unique_id=1891278954]
+[node name="Sprite" type="Sprite2D" parent="World/Table" unique_id=709404628]
 position = Vector2(-48, -64)
-texture = ExtResource("4_vxglm")
+texture = ExtResource("7_qkpxi")
 centered = false
 
-[node name="Stove" type="StaticBody2D" parent="World" unique_id=363775506]
+[node name="Stove" type="StaticBody2D" parent="World" unique_id=1032301650]
 position = Vector2(162, 126)
-script = ExtResource("5_2f3dj")
+script = ExtResource("8_5q0nq")
 
-[node name="Shape" type="CollisionShape2D" parent="World/Stove" unique_id=842025565]
+[node name="Shape" type="CollisionShape2D" parent="World/Stove" unique_id=1897617434]
 position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_j2jfr")
+shape = SubResource("RectangleShape2D_ids8r")
 
-[node name="Fire" type="AnimatedSprite2D" parent="World/Stove" unique_id=1496281765]
+[node name="Fire" type="AnimatedSprite2D" parent="World/Stove" unique_id=115619298]
 position = Vector2(-16, -64)
-sprite_frames = SubResource("SpriteFrames_ids8r")
+sprite_frames = SubResource("SpriteFrames_kf5aa")
 animation = &"fire"
 autoplay = "fire"
 centered = false
 
-[node name="Glow" type="PointLight2D" parent="World/Stove" unique_id=1381465216]
+[node name="Glow" type="PointLight2D" parent="World/Stove" unique_id=613244580]
 position = Vector2(-1, -25)
 color = Color(1, 0.55, 0.25, 1)
-energy = 0.9
-texture = SubResource("GradientTexture2D_1v6qk")
+energy = 0.5
+texture = SubResource("GradientTexture2D_e755i")
+texture_scale = 0.85
 
-[node name="Steam" type="CPUParticles2D" parent="World/Stove" unique_id=1922046707]
+[node name="Steam" type="CPUParticles2D" parent="World/Stove" unique_id=1224027963]
 position = Vector2(-7, -48)
 amount = 24
-texture = ExtResource("7_fv21b")
+texture = ExtResource("10_j8jky")
 lifetime = 2.4
 emission_shape = 1
 emission_sphere_radius = 1.0
@@ -484,13 +520,13 @@ gravity = Vector2(1.5, -5)
 initial_velocity_min = 5.0
 initial_velocity_max = 9.0
 scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_augu2")
+color_ramp = SubResource("Gradient_ro3en")
 
-[node name="SteamBurst" type="CPUParticles2D" parent="World/Stove" unique_id=1317373695]
+[node name="SteamBurst" type="CPUParticles2D" parent="World/Stove" unique_id=647856643]
 position = Vector2(-7, -48)
 emitting = false
 amount = 26
-texture = ExtResource("7_fv21b")
+texture = ExtResource("10_j8jky")
 lifetime = 2.4
 one_shot = true
 explosiveness = 0.5
@@ -502,32 +538,32 @@ gravity = Vector2(1.5, -5)
 initial_velocity_min = 9.0
 initial_velocity_max = 15.0
 scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_tm6hj")
+color_ramp = SubResource("Gradient_od4ux")
 
-[node name="Crackle" type="AudioStreamPlayer2D" parent="World/Stove" unique_id=222627911]
-stream = ExtResource("8_tel4y")
+[node name="Crackle" type="AudioStreamPlayer2D" parent="World/Stove" unique_id=566873433]
+stream = ExtResource("11_kmb1v")
 volume_db = -4.0
 autoplay = true
 max_distance = 260.0
 
-[node name="Cat" type="StaticBody2D" parent="World" unique_id=1156401201]
+[node name="Cat" type="StaticBody2D" parent="World" unique_id=558833584]
 position = Vector2(170, 152)
-script = ExtResource("9_qkpxi")
+script = ExtResource("12_fuf3a")
 
-[node name="Shape" type="CollisionShape2D" parent="World/Cat" unique_id=2063379678]
+[node name="Shape" type="CollisionShape2D" parent="World/Cat" unique_id=120057796]
 position = Vector2(0, -11)
-shape = SubResource("RectangleShape2D_kf5aa")
+shape = SubResource("RectangleShape2D_xhfw6")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="World/Cat" unique_id=1105303155]
+[node name="Sprite" type="AnimatedSprite2D" parent="World/Cat" unique_id=882606811]
 position = Vector2(-16, -28)
-sprite_frames = SubResource("SpriteFrames_xhfw6")
+sprite_frames = SubResource("SpriteFrames_mlv25")
 animation = &"breath"
 centered = false
 
-[node name="Zzz" type="CPUParticles2D" parent="World/Cat" unique_id=129341565]
+[node name="Zzz" type="CPUParticles2D" parent="World/Cat" unique_id=365505117]
 position = Vector2(-8, -24)
 amount = 2
-texture = ExtResource("11_dgi5k")
+texture = ExtResource("6_tel4y")
 lifetime = 3.2
 direction = Vector2(0.5, -1)
 spread = 10.0
@@ -535,13 +571,13 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 4.0
 initial_velocity_max = 5.0
 scale_amount_min = 0.6
-color_ramp = SubResource("Gradient_1epgm")
+color_ramp = SubResource("Gradient_a82wo")
 
-[node name="Hearts" type="CPUParticles2D" parent="World/Cat" unique_id=772992020]
+[node name="Hearts" type="CPUParticles2D" parent="World/Cat" unique_id=729746435]
 position = Vector2(-2, -20)
 emitting = false
 amount = 5
-texture = ExtResource("12_j8jky")
+texture = ExtResource("14_c6pm6")
 lifetime = 1.6
 one_shot = true
 explosiveness = 0.6
@@ -550,235 +586,242 @@ spread = 50.0
 gravity = Vector2(0, 6)
 initial_velocity_min = 14.0
 initial_velocity_max = 20.0
-color_ramp = SubResource("Gradient_152kg")
+color_ramp = SubResource("Gradient_gdvew")
 
-[node name="Purr" type="AudioStreamPlayer2D" parent="World/Cat" unique_id=2045909161]
-stream = ExtResource("13_kmb1v")
+[node name="Purr" type="AudioStreamPlayer2D" parent="World/Cat" unique_id=904610780]
+stream = ExtResource("15_5he1u")
 max_distance = 260.0
 
-[node name="Player" type="CharacterBody2D" parent="World" unique_id=921939069]
+[node name="Player" type="CharacterBody2D" parent="World" unique_id=1020742920]
 position = Vector2(128, 186)
 motion_mode = 1
-script = ExtResource("14_fuf3a")
+script = ExtResource("16_5poiv")
 
-[node name="Shadow" type="Sprite2D" parent="World/Player" unique_id=1794151587]
+[node name="Shadow" type="Sprite2D" parent="World/Player" unique_id=203828153]
 position = Vector2(0, -1)
-texture = ExtResource("15_pibwh")
+texture = ExtResource("17_2cjbq")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="World/Player" unique_id=625099032]
-position = Vector2(0, -27)
-sprite_frames = SubResource("SpriteFrames_vtx2l")
+[node name="Sprite" type="AnimatedSprite2D" parent="World/Player" unique_id=1336033035]
+self_modulate = Color(1.12, 1.1, 1.08, 1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_v0wtd")
 animation = &"down_idle"
+offset = Vector2(0, -57)
 
-[node name="Feet" type="CollisionShape2D" parent="World/Player" unique_id=233132508]
+[node name="Feet" type="CollisionShape2D" parent="World/Player" unique_id=251892017]
 position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_63lxy")
+shape = SubResource("RectangleShape2D_sgvw8")
 
-[node name="Reach" type="Area2D" parent="World/Player" unique_id=789262406]
+[node name="Reach" type="Area2D" parent="World/Player" unique_id=598688961]
 collision_layer = 0
 collision_mask = 2
 
-[node name="Shape" type="CollisionShape2D" parent="World/Player/Reach" unique_id=105115559]
-shape = SubResource("CircleShape2D_fjhjs")
+[node name="Shape" type="CollisionShape2D" parent="World/Player/Reach" unique_id=1281490354]
+shape = SubResource("CircleShape2D_6nfnn")
 
-[node name="Prompt" type="Node2D" parent="World/Player" unique_id=349122134]
+[node name="Prompt" type="Node2D" parent="World/Player" unique_id=1024422106]
 visible = false
 z_index = 20
 position = Vector2(0, -66)
 
-[node name="Key" type="Sprite2D" parent="World/Player/Prompt" unique_id=592369888]
-texture = ExtResource("17_5he1u")
+[node name="Key" type="Sprite2D" parent="World/Player/Prompt" unique_id=1629252003]
+texture = ExtResource("19_cjqg0")
 
-[node name="Label" type="Label" parent="World/Player/Prompt" unique_id=112592790]
+[node name="Label" type="Label" parent="World/Player/Prompt" unique_id=607951341]
 offset_left = -40.0
 offset_top = 5.0
 offset_right = 40.0
 offset_bottom = 28.0
-theme_override_fonts/font = ExtResource("18_5poiv")
+theme_override_fonts/font = ExtResource("20_vchkt")
 theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(1, 0.96, 0.88, 1)
 theme_override_colors/font_outline_color = Color(0.18, 0.1, 0.07, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 1
 
-[node name="Step" type="AudioStreamPlayer2D" parent="World/Player" unique_id=319586690]
-stream = ExtResource("19_2cjbq")
+[node name="Step" type="AudioStreamPlayer2D" parent="World/Player" unique_id=273866411]
+stream = ExtResource("21_txyw0")
 volume_db = -10.0
 max_distance = 260.0
 
-[node name="Walls" type="StaticBody2D" parent="." unique_id=945821009]
+[node name="Walls" type="StaticBody2D" parent="." unique_id=1725458075]
 
-[node name="Edge0" type="CollisionShape2D" parent="Walls" unique_id=390064967]
-shape = SubResource("SegmentShape2D_bfu41")
+[node name="Edge0" type="CollisionShape2D" parent="Walls" unique_id=1683570725]
+shape = SubResource("SegmentShape2D_4ue30")
 
-[node name="Edge1" type="CollisionShape2D" parent="Walls" unique_id=185291709]
-shape = SubResource("SegmentShape2D_r4ag1")
+[node name="Edge1" type="CollisionShape2D" parent="Walls" unique_id=965448689]
+shape = SubResource("SegmentShape2D_k42av")
 
-[node name="Edge2" type="CollisionShape2D" parent="Walls" unique_id=451095504]
-shape = SubResource("SegmentShape2D_v0wtd")
+[node name="Edge2" type="CollisionShape2D" parent="Walls" unique_id=2134461721]
+shape = SubResource("SegmentShape2D_gr8w0")
 
-[node name="Edge3" type="CollisionShape2D" parent="Walls" unique_id=433369334]
-shape = SubResource("SegmentShape2D_sgvw8")
+[node name="Edge3" type="CollisionShape2D" parent="Walls" unique_id=984405338]
+shape = SubResource("SegmentShape2D_673bd")
 
-[node name="Nightstand" type="CollisionShape2D" parent="Walls" unique_id=826936105]
+[node name="Nightstand" type="CollisionShape2D" parent="Walls" unique_id=473436281]
 position = Vector2(115, 104)
-shape = SubResource("RectangleShape2D_6nfnn")
+shape = SubResource("RectangleShape2D_akjxb")
 
-[node name="Shelf" type="CollisionShape2D" parent="Walls" unique_id=1408051202]
+[node name="Shelf" type="CollisionShape2D" parent="Walls" unique_id=1120442470]
 position = Vector2(216, 130)
-shape = SubResource("RectangleShape2D_4ue30")
+shape = SubResource("RectangleShape2D_vrx01")
 
-[node name="Door" type="CollisionShape2D" parent="Walls" unique_id=130988053]
+[node name="Door" type="CollisionShape2D" parent="Walls" unique_id=520709937]
 position = Vector2(214, 234)
-shape = SubResource("RectangleShape2D_k42av")
+shape = SubResource("RectangleShape2D_1uevf")
 
-[node name="Interactables" type="Node2D" parent="." unique_id=436009096]
+[node name="Interactables" type="Node2D" parent="." unique_id=1667882230]
 
-[node name="Bed" type="Area2D" parent="Interactables" unique_id=73651434]
+[node name="Bed" type="Area2D" parent="Interactables" unique_id=1348983269]
 position = Vector2(66, 136)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Кровать"
 text = "Лоскутное одеяло. Каждый лоскут — из чьей-то старой рубашки.
 Анзу: Прилягу ненадолго..."
 action = "sleep"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/Bed" unique_id=1391808518]
-shape = SubResource("RectangleShape2D_gr8w0")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/Bed" unique_id=1084466203]
+shape = SubResource("RectangleShape2D_tc087")
 
-[node name="Radio" type="Area2D" parent="Interactables" unique_id=2069028290]
+[node name="Radio" type="Area2D" parent="Interactables" unique_id=169673843]
 position = Vector2(115, 117)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Радио"
 text = "Старое радио тихо шипит.
 ...ш-ш-ш... кх... сиг...нал... ш-ш...
-Анзу: Пико говорит, сквозь помехи иногда слышно Землю. Сегодня она молчит."
+Анзу: Пико говорит, сквозь помехи иногда слышно Землю.
+Анзу: ...Сегодня она молчит."
 action = "radio"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/Radio" unique_id=120668427]
-shape = SubResource("RectangleShape2D_673bd")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/Radio" unique_id=1877518183]
+shape = SubResource("RectangleShape2D_73205")
 
-[node name="Window" type="Area2D" parent="Interactables" unique_id=1350049280]
+[node name="Window" type="Area2D" parent="Interactables" unique_id=1687349879]
 position = Vector2(137, 100)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Окно"
 text = "За окном — руины города, оплетённые корнями.
 Анзу: Если ты слышишь — значит, оно живо."
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/Window" unique_id=1664333754]
-shape = SubResource("RectangleShape2D_akjxb")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/Window" unique_id=8285192]
+shape = SubResource("RectangleShape2D_0tljd")
 
-[node name="StoveUse" type="Area2D" parent="Interactables" unique_id=1333479600]
+[node name="StoveUse" type="Area2D" parent="Interactables" unique_id=40198748]
 position = Vector2(162, 128)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Печка"
 text = "Печка потрескивает. Пахнет смолой и травяным чаем.
-Анзу: Чайник вот-вот закипит."
+Анзу: Чайник вот-вот закипит!"
 action = "stove"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/StoveUse" unique_id=866409489]
-shape = SubResource("RectangleShape2D_vrx01")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/StoveUse" unique_id=1819557588]
+shape = SubResource("RectangleShape2D_mgpkq")
 
-[node name="CatPet" type="Area2D" parent="Interactables" unique_id=1906742390]
+[node name="CatPet" type="Area2D" parent="Interactables" unique_id=807137336]
 position = Vector2(170, 145)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Рыжик"
 text = "Рыжик спит, свернувшись клубком.
-Анзу гладит его по тёплой спине. Мрр-р-р..."
+Анзу: Рыжик тёплый-тёплый... Мягкий!
+Мрр-р-р..."
 action = "pet"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/CatPet" unique_id=713043873]
-shape = SubResource("RectangleShape2D_1uevf")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/CatPet" unique_id=2141065501]
+shape = SubResource("RectangleShape2D_xmrkg")
 
-[node name="ShelfLook" type="Area2D" parent="Interactables" unique_id=42448060]
+[node name="ShelfLook" type="Area2D" parent="Interactables" unique_id=1174554398]
 position = Vector2(201, 130)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Полка"
 text = "Склянки с семенами и сушёными травами.
-На каждой — подпись детским почерком."
+На каждой — подпись детским почерком.
+Анзу: Это Анзу подписывала! Красиво же?"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/ShelfLook" unique_id=1442647559]
-shape = SubResource("RectangleShape2D_tc087")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/ShelfLook" unique_id=1962177306]
+shape = SubResource("RectangleShape2D_wvlrk")
 
-[node name="TableUse" type="Area2D" parent="Interactables" unique_id=750446448]
+[node name="TableUse" type="Area2D" parent="Interactables" unique_id=1733148258]
 position = Vector2(98, 214)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Стол"
 text = "Хлеб ещё тёплый. И чашка травяного чая.
-Анзу отламывает кусочек. Вкусно."
+Анзу отламывает кусочек.
+Анзу: М-м! Вкусно!"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/TableUse" unique_id=1964489548]
-shape = SubResource("RectangleShape2D_73205")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/TableUse" unique_id=1518811952]
+shape = SubResource("RectangleShape2D_engxj")
 
-[node name="DoorUse" type="Area2D" parent="Interactables" unique_id=641728601]
+[node name="DoorUse" type="Area2D" parent="Interactables" unique_id=1582267263]
 position = Vector2(212, 224)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Дверь"
 text = "Анзу: Пико просил дождаться его дома.
 Анзу: ...Ладно. Ещё немного."
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/DoorUse" unique_id=680483783]
-shape = SubResource("RectangleShape2D_0tljd")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/DoorUse" unique_id=742814349]
+shape = SubResource("RectangleShape2D_raiwf")
 
-[node name="Scarf" type="Area2D" parent="Interactables" unique_id=1101965588]
+[node name="Scarf" type="Area2D" parent="Interactables" unique_id=1434432369]
 position = Vector2(34, 194)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Шарф"
-text = "Тёплый шарф. Его связали очень давно, ещё до Нексара."
+text = "Тёплый шарф. Его связали очень давно, ещё до Нексара.
+Анзу: Пахнет бабушкой..."
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/Scarf" unique_id=1543789376]
-shape = SubResource("RectangleShape2D_mgpkq")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/Scarf" unique_id=340130165]
+shape = SubResource("RectangleShape2D_roort")
 
-[node name="Shoes" type="Area2D" parent="Interactables" unique_id=1075289775]
+[node name="Shoes" type="Area2D" parent="Interactables" unique_id=2033349747]
 position = Vector2(162, 217)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
-script = ExtResource("20_chjal")
+script = ExtResource("22_vc5cj")
 title = "Ботинки"
-text = "Старые ботинки. Уже малы, но выбросить жалко."
+text = "Старые ботинки. Уже малы, но выбросить жалко.
+Анзу: Анзу тогда была совсем маленькая!"
 
-[node name="Shape" type="CollisionShape2D" parent="Interactables/Shoes" unique_id=1851316278]
-shape = SubResource("RectangleShape2D_xmrkg")
+[node name="Shape" type="CollisionShape2D" parent="Interactables/Shoes" unique_id=1312880755]
+shape = SubResource("RectangleShape2D_gm02q")
 
-[node name="WindowLight" type="PointLight2D" parent="." unique_id=1535753488]
+[node name="WindowLight" type="PointLight2D" parent="." unique_id=471121674]
 position = Vector2(122, 132)
 color = Color(1, 0.9, 0.68, 1)
-energy = 0.45
-texture = SubResource("GradientTexture2D_engxj")
-texture_scale = 1.2
+energy = 0.2
+texture = SubResource("GradientTexture2D_37xlc")
 
-[node name="Dust" type="CPUParticles2D" parent="." unique_id=1991059166]
+[node name="Dust" type="CPUParticles2D" parent="." unique_id=1228018358]
 z_index = 5
 position = Vector2(120, 132)
 amount = 18
-texture = ExtResource("7_fv21b")
+texture = ExtResource("10_j8jky")
 lifetime = 7.0
 preprocess = 7.0
 emission_shape = 3
@@ -790,98 +833,100 @@ initial_velocity_min = 0.5
 initial_velocity_max = 2.0
 scale_amount_min = 0.5
 scale_amount_max = 0.5
-color_ramp = SubResource("Gradient_raiwf")
+color_ramp = SubResource("Gradient_83607")
 
-[node name="Camera" type="Camera2D" parent="." unique_id=518096791]
+[node name="Camera" type="Camera2D" parent="." unique_id=52787965]
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
-[node name="RadioStatic" type="AudioStreamPlayer2D" parent="." unique_id=1041174239]
+[node name="RadioStatic" type="AudioStreamPlayer2D" parent="." unique_id=663708003]
 position = Vector2(114, 88)
-stream = ExtResource("21_cjqg0")
+stream = ExtResource("23_nvyfr")
 volume_db = -6.0
 max_distance = 260.0
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=1539435847]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1169479300]
 
-[node name="Dialog" type="Control" parent="UI" unique_id=59044235]
+[node name="Dialog" type="Control" parent="UI" unique_id=766681293]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource("22_vchkt")
+script = ExtResource("24_ty1g6")
 
-[node name="Box" type="Panel" parent="UI/Dialog" unique_id=368685594]
+[node name="Box" type="Panel" parent="UI/Dialog" unique_id=2054325417]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 158.0
 offset_right = 356.0
 offset_bottom = 208.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_roort")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vny5k")
 
-[node name="Text" type="Label" parent="UI/Dialog/Box" unique_id=1373674018]
+[node name="Text" type="Label" parent="UI/Dialog/Box" unique_id=617388024]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
 offset_right = 316.0
 offset_bottom = 45.0
-theme_override_fonts/font = ExtResource("18_5poiv")
+theme_override_fonts/font = ExtResource("20_vchkt")
 theme_override_font_sizes/font_size = 9
 theme_override_colors/font_color = Color(0.98, 0.93, 0.84, 1)
 autowrap_mode = 3
 
-[node name="NameTag" type="Panel" parent="UI/Dialog/Box" unique_id=1944281166]
+[node name="NameTag" type="Panel" parent="UI/Dialog/Box" unique_id=1435912993]
 layout_mode = 0
 offset_left = 8.0
 offset_top = -9.0
 offset_right = 44.0
 offset_bottom = 3.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gm02q")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8lcmr")
 
-[node name="Label" type="Label" parent="UI/Dialog/Box/NameTag" unique_id=1707633525]
+[node name="Label" type="Label" parent="UI/Dialog/Box/NameTag" unique_id=1075084346]
 layout_mode = 0
 offset_right = 36.0
 offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("18_5poiv")
+theme_override_fonts/font = ExtResource("20_vchkt")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Arrow" type="Label" parent="UI/Dialog/Box" unique_id=384030430]
+[node name="Arrow" type="Label" parent="UI/Dialog/Box" unique_id=1517224685]
 layout_mode = 0
 offset_left = 314.0
 offset_top = 36.0
 offset_right = 314.0
 offset_bottom = 36.0
-theme_override_fonts/font = ExtResource("18_5poiv")
+theme_override_fonts/font = ExtResource("20_vchkt")
 theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(0.85, 0.65, 0.4, 1)
 text = "▼"
 
-[node name="Blip" type="AudioStreamPlayer" parent="UI/Dialog" unique_id=1978336539]
-stream = ExtResource("23_txyw0")
+[node name="Blip" type="AudioStreamPlayer" parent="UI/Dialog" unique_id=1674577899]
+stream = ExtResource("25_j2jfr")
 volume_db = -14.0
 
-[node name="Hint" type="Label" parent="UI" unique_id=1126254798]
+[node name="Voice" type="AudioStreamPlayer" parent="UI/Dialog" unique_id=609521121]
+
+[node name="Hint" type="Label" parent="UI" unique_id=174193324]
 offset_left = 6.0
 offset_top = 4.0
 offset_right = 6.0
 offset_bottom = 4.0
-theme_override_fonts/font = ExtResource("18_5poiv")
+theme_override_fonts/font = ExtResource("20_vchkt")
 theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(1, 1, 1, 0.55)
 text = "WASD / стрелки — ходить     E — действие     Esc — пауза"
 
-[node name="Fade" type="ColorRect" parent="UI" unique_id=2105936927]
+[node name="Fade" type="ColorRect" parent="UI" unique_id=1013763316]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Pause" type="Control" parent="UI" unique_id=802630497]
+[node name="Pause" type="Control" parent="UI" unique_id=753894204]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("24_vc5cj")
+script = ExtResource("26_bjg73")

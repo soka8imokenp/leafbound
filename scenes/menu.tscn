@@ -51,34 +51,34 @@ colors = PackedColorArray(1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0.7
 offsets = PackedFloat32Array(0, 1, 0.25, 0.75)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1)
 
-[node name="Menu" type="Control" unique_id=645234186]
+[node name="Menu" type="Control" unique_id=1708599044]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_ffqrc")
 
-[node name="Canvas" type="Control" parent="." unique_id=53667005]
+[node name="Canvas" type="Control" parent="." unique_id=2111657181]
 texture_filter = 4
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(0.2, 0.2)
 
-[node name="Bg" type="TextureRect" parent="Canvas" unique_id=1553139130]
+[node name="Bg" type="TextureRect" parent="Canvas" unique_id=1401586504]
 material = SubResource("ShaderMaterial_055ta")
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_x16fv")
 
-[node name="LogoLeaf" type="Sprite2D" parent="Canvas" unique_id=119786720]
+[node name="LogoLeaf" type="Sprite2D" parent="Canvas" unique_id=2117221702]
 position = Vector2(452, 252)
 texture = ExtResource("3_g54pe")
 centered = false
 offset = Vector2(-72, -172)
 
-[node name="Motes" type="CPUParticles2D" parent="Canvas" unique_id=438374629]
+[node name="Motes" type="CPUParticles2D" parent="Canvas" unique_id=1567546138]
 texture_filter = 1
 position = Vector2(1100, 820)
 amount = 34
@@ -97,7 +97,7 @@ scale_amount_min = 2.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_6jp1x")
 
-[node name="Leaves" type="CPUParticles2D" parent="Canvas" unique_id=712176807]
+[node name="Leaves" type="CPUParticles2D" parent="Canvas" unique_id=584664846]
 texture_filter = 1
 position = Vector2(700, -60)
 amount = 12
@@ -119,7 +119,7 @@ scale_amount_min = 5.0
 scale_amount_max = 7.0
 color_ramp = SubResource("Gradient_dslam")
 
-[node name="New" type="TextureButton" parent="Canvas" unique_id=1419835761]
+[node name="New" type="TextureButton" parent="Canvas" unique_id=160325238]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 471.0
@@ -133,7 +133,7 @@ texture_hover = ExtResource("8_b5gwo")
 texture_disabled = ExtResource("9_0ndyk")
 texture_focused = ExtResource("8_b5gwo")
 
-[node name="Continue" type="TextureButton" parent="Canvas" unique_id=284614968]
+[node name="Continue" type="TextureButton" parent="Canvas" unique_id=1031007652]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 565.0
@@ -147,7 +147,7 @@ texture_hover = ExtResource("12_d3h35")
 texture_disabled = ExtResource("13_v8lyk")
 texture_focused = ExtResource("12_d3h35")
 
-[node name="Settings" type="TextureButton" parent="Canvas" unique_id=61355209]
+[node name="Settings" type="TextureButton" parent="Canvas" unique_id=1379353794]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 658.0
@@ -161,7 +161,7 @@ texture_hover = ExtResource("16_qfcyc")
 texture_disabled = ExtResource("17_spe5f")
 texture_focused = ExtResource("16_qfcyc")
 
-[node name="Exit" type="TextureButton" parent="Canvas" unique_id=685062223]
+[node name="Exit" type="TextureButton" parent="Canvas" unique_id=1393392627]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 752.0
@@ -175,26 +175,26 @@ texture_hover = ExtResource("20_nsg6j")
 texture_disabled = ExtResource("21_qwtqu")
 texture_focused = ExtResource("20_nsg6j")
 
-[node name="Marker" type="Sprite2D" parent="Canvas" unique_id=1171099888]
+[node name="Marker" type="Sprite2D" parent="Canvas" unique_id=1397343224]
 texture_filter = 1
 position = Vector2(78, 513)
 texture = ExtResource("22_dg0of")
 
-[node name="SettingsPanel" type="Control" parent="." unique_id=228142184]
+[node name="SettingsPanel" type="Control" parent="." unique_id=1630256457]
 anchors_preset = 0
 script = ExtResource("23_21umf")
 
-[node name="Fade" type="ColorRect" parent="." unique_id=942668580]
+[node name="Fade" type="ColorRect" parent="." unique_id=1940637531]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=287080104]
+[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=838224863]
 stream = ExtResource("24_bugl6")
 volume_db = -12.0
 
-[node name="Click" type="AudioStreamPlayer" parent="." unique_id=828504997]
+[node name="Click" type="AudioStreamPlayer" parent="." unique_id=381625262]
 stream = ExtResource("25_leckd")
 volume_db = -2.0

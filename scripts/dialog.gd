@@ -15,6 +15,8 @@ var shown := 0
 @onready var name_label: Label = $Box/NameTag/Label
 @onready var arrow: Control = $Box/Arrow
 @onready var blip: AudioStreamPlayer = $Blip
+@onready var voice: AudioStreamPlayer = $Voice
+var voiced := false
 
 
 func _ready() -> void:
@@ -40,10 +42,20 @@ func _show_line() -> void:
 	text.visible_characters = 0
 	shown = 0
 	arrow.visible = false
+	# Japanese voice for Anzu's lines: res://voice/<md5 of the subtitle>.ogg (tools/voice_gen.py)
+	voice.stop()
+	voiced = false
+	var duration := s.length() * 0.032
+	var path := "res://voice/%s.ogg" % s.md5_text()
+	if who != "" and ResourceLoader.exists(path):
+		voice.stream = load(path)
+		voice.play()
+		voiced = true
+		duration = clampf(voice.stream.get_length() * 0.85, duration * 0.6, duration * 2.0)
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(text, "visible_characters", s.length(), s.length() * 0.032)
+	tween.tween_property(text, "visible_characters", s.length(), duration)
 	tween.finished.connect(func(): arrow.visible = true)
 
 
@@ -52,7 +64,7 @@ func _process(_dt: float) -> void:
 		return
 	if text.visible_characters > shown:
 		shown = text.visible_characters
-		if shown % 2 == 0 and shown <= text.text.length() and text.text[shown - 1] != " ":
+		if not voiced and shown % 2 == 0 and shown <= text.text.length() and text.text[shown - 1] != " ":
 			blip.pitch_scale = randf_range(0.9, 1.1)
 			blip.play()
 	arrow.position.y = 36 + roundf(sin(Time.get_ticks_msec() * 0.008))
@@ -69,6 +81,7 @@ func _input(event: InputEvent) -> void:
 		return
 	index += 1
 	if index >= lines.size():
+		voice.stop()
 		visible = false
 		finished.emit()
 	else:

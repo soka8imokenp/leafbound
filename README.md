@@ -26,7 +26,7 @@ WASD / стрелки — ходить, E / пробел / Enter — дейст�
 | `scripts/` | `player.gd` ходьба и выбор предмета, `dialog.gd` окно текста, `cat.gd`, `stove.gd`, `main.gd` логика комнаты, день/вечер |
 | `art/room_bg.png` | фон 256×256 (концепт из Gemini переведён в пиксели, объекты стёрты) |
 | `art/ase/*.png` | кровать, кот, печка, стол — отрендерены из твоих `.aseprite` |
-| `art/anzu_sheet.png` | Анзу 64×64: ряды down_idle, down_walk, up_idle, up_walk, side_idle, side_walk |
+| `art/anzu_sheet_hd.png` | Анзу в родных 128×128 (оригинальный арт, показывается в масштабе 0.5): ряды down_idle, down_walk, up_idle, up_walk, side_idle, side_walk. Генерирует `tools/anzu_frames_hd.py` — только сдвигает твои пиксели (шаги, покачивание, взгляд), не перерисовывает |
 | `art/cat_breath.png`, `art/stove_fire.png` | кадры дыхания кота и огня |
 | `sfx/` | синтезированные звуки (огонь, мурчание, помехи радио, шаги, текст) |
 | `audio/reiselust.ogg` | музыка (исходник был AAC с расширением .mp3 — Godot его не читает) |
@@ -41,7 +41,7 @@ WASD / стрелки — ходить, E / пробел / Enter — дейст�
 ```bash
 cd ~/Projects/Leafbound
 .venv/bin/python tools/build_room.py      # фон
-.venv/bin/python tools/anzu_frames.py     # кадры Анзу
+.venv/bin/python tools/anzu_frames_hd.py  # кадры Анзу (128 px, из Anzu.png)
 .venv/bin/python tools/prop_frames.py     # кот, огонь, частицы
 .venv/bin/python tools/make_misc.py       # тень, кнопка E, звуки
 godot --headless --path . --import

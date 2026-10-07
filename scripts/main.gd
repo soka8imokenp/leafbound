@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var settings: Node = get_node("/root/Settings")
 
-const DAY := Color(0.9, 0.84, 0.78)
+const DAY := Color(0.84, 0.78, 0.74)
 const NIGHT := Color(0.36, 0.38, 0.56)
 
 var night := false
@@ -21,6 +21,8 @@ var radio_on := false
 @onready var cat: Node = $World/Cat
 @onready var led: ColorRect = $RadioLed
 @onready var radio_sfx: AudioStreamPlayer2D = $RadioStatic
+@onready var sleeper: Node2D = $World/Bed/Sleeper
+@onready var blanket: Sprite2D = $World/Bed/Sleeper/Blanket
 
 
 func _ready() -> void:
@@ -61,6 +63,8 @@ func leave(scene: String) -> void:
 
 func _process(_dt: float) -> void:
 	cam.position = _cam_target()
+	if sleeper.visible:                             # slow breathing under the quilt
+		blanket.position.y = -1.0 if sin(Time.get_ticks_msec() * 0.0025) > 0.3 else 0.0
 	var ms := Time.get_ticks_msec()
 	var on := (ms / 90) % 2 == 0 if radio_on else (ms / 1400) % 3 != 0
 	led.color = Color(0.55, 1.0, 0.45) if on else Color(0.2, 0.35, 0.18)
@@ -92,28 +96,46 @@ func interact(area: Area2D) -> void:
 	player.busy = false
 
 
-func _nap() -> void:
+func _fade(alpha: float, sec: float) -> void:
 	var tw := create_tween()
-	tw.tween_property(fade, "color:a", 1.0, 1.2)
+	tw.tween_property(fade, "color:a", alpha, sec).set_trans(Tween.TRANS_SINE)
 	await tw.finished
+
+
+func _nap() -> void:
+	# lie down
+	await _fade(1.0, 0.5)
+	player.visible = false
+	player.position = Vector2(108, 150)            # camera stays on the bed corner
+	cam.position = _cam_target()
+	sleeper.visible = true
+	await _fade(0.0, 0.7)
+	await get_tree().create_timer(2.2).timeout
+	# time passes
+	await _fade(1.0, 1.8)
 	_apply_time(not night)
+	await get_tree().create_timer(1.0).timeout
+	await _fade(0.0, 1.8)
+	await get_tree().create_timer(1.4).timeout
+	# get up next to the bed
+	await _fade(1.0, 0.4)
+	sleeper.visible = false
+	player.visible = true
+	player.facing = "left"
 	save()
-	await get_tree().create_timer(0.8).timeout
-	tw = create_tween()
-	tw.tween_property(fade, "color:a", 0.0, 1.4)
-	await tw.finished
-	dialog.open(PackedStringArray(["Анзу немного вздремнула. За окном уже стемнело."]) if night
-		else PackedStringArray(["Утро. Сквозь окно пробивается тёплый свет."]))
+	await _fade(0.0, 0.5)
+	dialog.open(PackedStringArray(["Анзу: Ой... Анзу уснула?", "За окном уже стемнело."]) if night
+		else PackedStringArray(["Анзу: Утро! Доброе утро, Рыжик!", "Сквозь окно пробивается тёплый свет."]))
 	await dialog.finished
 
 
 func _apply_time(is_night: bool) -> void:
 	night = is_night
 	tint.color = NIGHT if night else DAY
-	window_light.energy = 0.05 if night else 0.45
+	window_light.energy = 0.0 if night else 0.2
 	night_glass.color.a = 0.78 if night else 0.0
 	dust.emitting = not night
-	stove.base_energy = 1.35 if night else 0.9
+	stove.base_energy = 0.95 if night else 0.5
 
 
 func _loop_wav(s: AudioStream) -> void:

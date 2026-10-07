@@ -33,7 +33,8 @@ func _ready() -> void:
 	create_tween().tween_property(fade, "color:a", 0.0, 0.9)
 	ready_done = true
 	if OS.get_environment("LB_AUTOTEST") != "":
-		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+		if OS.get_environment("LB_LOWRES") != "":
+			get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		_autotest.call_deferred()
 
 

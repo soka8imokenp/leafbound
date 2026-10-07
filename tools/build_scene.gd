@@ -13,7 +13,7 @@ func _init() -> void:
 
 	var tint := CanvasModulate.new()
 	tint.name = "Tint"
-	tint.color = Color(0.9, 0.84, 0.78)
+	tint.color = Color(0.84, 0.78, 0.74)
 	main_root.add_child(tint)
 
 	var bg := Sprite2D.new()
@@ -186,6 +186,35 @@ func _props(world: Node2D) -> void:
 	# bed 64x96, sprite top-left (33,72), sorted by its foot (65,168)
 	var bed := _body("Bed", Vector2(65, 168), Vector2(66, 130), Vector2(60, 72))
 	bed.add_child(_sprite("res://art/ase/bed_0.png", Vector2(-32, -96)))
+	# Anzu asleep: her head on the pillow, the quilt edge pulled up to the chin (hidden until a nap)
+	var sleeper := Node2D.new()
+	sleeper.name = "Sleeper"
+	sleeper.position = Vector2(-32, -96)
+	sleeper.visible = false
+	var head := _sprite("res://art/anzu_sleep.png", Vector2(0, 9))
+	head.name = "Head"
+	head.scale = Vector2(0.5, 0.5)
+	head.self_modulate = Color(1.12, 1.1, 1.08)
+	sleeper.add_child(head)
+	var blanket := _sprite("res://art/bed_blanket.png", Vector2(0, 0))
+	blanket.name = "Blanket"
+	sleeper.add_child(blanket)
+	var sz := CPUParticles2D.new()
+	sz.name = "Zzz"
+	sz.texture = load("res://art/z.png")
+	sz.position = Vector2(46, 14)
+	sz.amount = 3
+	sz.lifetime = 2.6
+	sz.direction = Vector2(0.6, -1)
+	sz.spread = 12.0
+	sz.gravity = Vector2(0, 0)
+	sz.initial_velocity_min = 5.0
+	sz.initial_velocity_max = 6.0
+	sz.scale_amount_min = 0.7
+	sz.scale_amount_max = 1.1
+	sz.color_ramp = _fade_ramp(Color(1, 1, 1, 0.85), 0.3)
+	sleeper.add_child(sz)
+	bed.add_child(sleeper)
 	world.add_child(bed)
 
 	var table := _body("Table", Vector2(98, 240), Vector2(98, 216), Vector2(92, 36))
@@ -206,7 +235,8 @@ func _props(world: Node2D) -> void:
 	glow.name = "Glow"
 	glow.texture = _radial(128, Color(1, 1, 1))
 	glow.color = Color(1.0, 0.55, 0.25)
-	glow.energy = 0.9
+	glow.energy = 0.5
+	glow.texture_scale = 0.85
 	glow.position = Vector2(-1, -25)
 	stove.add_child(glow)
 	stove.add_child(_steam("Steam", 24, false))
@@ -296,11 +326,14 @@ func _player() -> CharacterBody2D:
 	p.add_child(sh)
 	var spr := AnimatedSprite2D.new()
 	spr.name = "Sprite"
-	spr.sprite_frames = _frames("res://art/anzu_sheet.png", 64, 64, [
+	# Anzu at her native 128 px art, drawn at half size: every original pixel stays visible
+	spr.sprite_frames = _frames("res://art/anzu_sheet_hd.png", 128, 128, [
 		["down_idle", 0, 2, 1.5, true], ["down_walk", 1, 4, 8.0, true],
 		["up_idle", 2, 2, 1.5, true], ["up_walk", 3, 4, 8.0, true],
 		["side_idle", 4, 2, 1.5, true], ["side_walk", 5, 4, 8.0, true]])
-	spr.position = Vector2(0, -27)            # feet (row 58) on the node origin
+	spr.scale = Vector2(0.5, 0.5)
+	spr.offset = Vector2(0, -57)              # feet (row 121 of 128) on the node origin
+	spr.self_modulate = Color(1.12, 1.1, 1.08)   # keep her colours above the warm room tint
 	p.add_child(spr)
 	var cs := CollisionShape2D.new()
 	cs.name = "Feet"
@@ -356,29 +389,35 @@ func _interactables() -> void:
 		["Radio", "Радио", Vector2(115, 117), Vector2(30, 10), "radio", [
 			"Старое радио тихо шипит.",
 			"...ш-ш-ш... кх... сиг...нал... ш-ш...",
-			"Анзу: Пико говорит, сквозь помехи иногда слышно Землю. Сегодня она молчит."]],
+			"Анзу: Пико говорит, сквозь помехи иногда слышно Землю.",
+			"Анзу: ...Сегодня она молчит."]],
 		["Window", "Окно", Vector2(137, 100), Vector2(14, 10), "", [
 			"За окном — руины города, оплетённые корнями.",
 			"Анзу: Если ты слышишь — значит, оно живо."]],
 		["StoveUse", "Печка", Vector2(162, 128), Vector2(44, 12), "stove", [
 			"Печка потрескивает. Пахнет смолой и травяным чаем.",
-			"Анзу: Чайник вот-вот закипит."]],
+			"Анзу: Чайник вот-вот закипит!"]],
 		["CatPet", "Рыжик", Vector2(170, 145), Vector2(40, 26), "pet", [
 			"Рыжик спит, свернувшись клубком.",
-			"Анзу гладит его по тёплой спине. Мрр-р-р..."]],
+			"Анзу: Рыжик тёплый-тёплый... Мягкий!",
+			"Мрр-р-р..."]],
 		["ShelfLook", "Полка", Vector2(201, 130), Vector2(10, 76), "", [
 			"Склянки с семенами и сушёными травами.",
-			"На каждой — подпись детским почерком."]],
+			"На каждой — подпись детским почерком.",
+			"Анзу: Это Анзу подписывала! Красиво же?"]],
 		["TableUse", "Стол", Vector2(98, 214), Vector2(104, 46), "", [
 			"Хлеб ещё тёплый. И чашка травяного чая.",
-			"Анзу отламывает кусочек. Вкусно."]],
+			"Анзу отламывает кусочек.",
+			"Анзу: М-м! Вкусно!"]],
 		["DoorUse", "Дверь", Vector2(212, 224), Vector2(46, 16), "", [
 			"Анзу: Пико просил дождаться его дома.",
 			"Анзу: ...Ладно. Ещё немного."]],
 		["Scarf", "Шарф", Vector2(34, 194), Vector2(16, 30), "", [
-			"Тёплый шарф. Его связали очень давно, ещё до Нексара."]],
+			"Тёплый шарф. Его связали очень давно, ещё до Нексара.",
+			"Анзу: Пахнет бабушкой..."]],
 		["Shoes", "Ботинки", Vector2(162, 217), Vector2(28, 20), "", [
-			"Старые ботинки. Уже малы, но выбросить жалко."]],
+			"Старые ботинки. Уже малы, но выбросить жалко.",
+			"Анзу: Анзу тогда была совсем маленькая!"]],
 	]
 	for d in data:
 		var a := Area2D.new()
@@ -403,8 +442,8 @@ func _atmosphere() -> void:
 	wl.name = "WindowLight"
 	wl.texture = _radial(128, Color(1, 1, 1))
 	wl.color = Color(1.0, 0.9, 0.68)
-	wl.energy = 0.45
-	wl.texture_scale = 1.2
+	wl.energy = 0.2
+	wl.texture_scale = 1.0
 	wl.position = Vector2(122, 132)
 	main_root.add_child(wl)
 	var dust := CPUParticles2D.new()
@@ -500,6 +539,11 @@ func _ui() -> CanvasLayer:
 	blip.volume_db = -14.0
 	blip.bus = "SFX"
 	dlg.add_child(blip)
+	var voice := AudioStreamPlayer.new()
+	voice.name = "Voice"
+	voice.bus = "SFX"
+	voice.volume_db = 0.0
+	dlg.add_child(voice)
 
 	var hint := Label.new()
 	hint.name = "Hint"

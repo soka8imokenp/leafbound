@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blk1n3f8c7qq1"
-path="res://.godot/imported/anzu_front.png-015ec4896ac88f9e9dcb7344352c5562.ctex"
+uid="uid://cnburw7f1wre0"
+path="res://.godot/imported/anzu_sheet_hd.png-6c97b907782e2284f994517b66ce51cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/anzu_front.png"
-dest_files=["res://.godot/imported/anzu_front.png-015ec4896ac88f9e9dcb7344352c5562.ctex"]
+source_file="res://art/anzu_sheet_hd.png"
+dest_files=["res://.godot/imported/anzu_sheet_hd.png-6c97b907782e2284f994517b66ce51cc.ctex"]
 
 [params]
 
