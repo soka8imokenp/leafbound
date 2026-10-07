@@ -1,0 +1,200 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_ffqrc"]
+[ext_resource type="Texture2D" path="res://art/menu/bg.png" id="2_x16fv"]
+[ext_resource type="Texture2D" path="res://art/menu/logo_leaf.png" id="3_g54pe"]
+[ext_resource type="Texture2D" path="res://art/menu/mote.png" id="4_48ryc"]
+[ext_resource type="Texture2D" path="res://art/menu/leaf.png" id="5_vhsb5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0.png" id="6_hwfsl"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_pressed.png" id="7_a04p5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_hover.png" id="8_b5gwo"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_disabled.png" id="9_0ndyk"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1.png" id="10_0qewb"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_pressed.png" id="11_mhjd8"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_hover.png" id="12_d3h35"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_disabled.png" id="13_v8lyk"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2.png" id="14_ruys5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_pressed.png" id="15_jlmas"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_hover.png" id="16_qfcyc"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_disabled.png" id="17_spe5f"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3.png" id="18_jcbs5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_pressed.png" id="19_jamij"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_hover.png" id="20_nsg6j"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_disabled.png" id="21_qwtqu"]
+[ext_resource type="Texture2D" path="res://art/menu/leaf_big.png" id="22_dg0of"]
+[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="23_21umf"]
+[ext_resource type="AudioStream" path="res://sfx/blip.wav" id="24_bugl6"]
+[ext_resource type="AudioStream" path="res://sfx/step.wav" id="25_leckd"]
+
+[sub_resource type="Shader" id="Shader_tg78l"]
+code = "
+shader_type canvas_item;
+// grass in the lower part sways by whole source pixels
+void fragment() {
+	vec2 sz = vec2(textureSize(TEXTURE, 0));
+	vec2 p = UV * sz;
+	float g = smoothstep(730.0, 1010.0, p.y);
+	float off = sin(TIME * 1.4 + p.y * 0.05 + p.x * 0.006) * 3.0 * g;
+	p.x += floor(off + 0.5);
+	COLOR = texture(TEXTURE, p / sz);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_055ta"]
+shader = SubResource("Shader_tg78l")
+
+[sub_resource type="Gradient" id="Gradient_6jp1x"]
+offsets = PackedFloat32Array(0, 1, 0.25, 0.75)
+colors = PackedColorArray(1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0.7, 1, 0.98, 0.85, 0.7)
+
+[sub_resource type="Gradient" id="Gradient_dslam"]
+offsets = PackedFloat32Array(0, 1, 0.25, 0.75)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[node name="Menu" type="Control" unique_id=645234186]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_ffqrc")
+
+[node name="Canvas" type="Control" parent="." unique_id=53667005]
+texture_filter = 4
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.2, 0.2)
+
+[node name="Bg" type="TextureRect" parent="Canvas" unique_id=1553139130]
+material = SubResource("ShaderMaterial_055ta")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_x16fv")
+
+[node name="LogoLeaf" type="Sprite2D" parent="Canvas" unique_id=119786720]
+position = Vector2(452, 252)
+texture = ExtResource("3_g54pe")
+centered = false
+offset = Vector2(-72, -172)
+
+[node name="Motes" type="CPUParticles2D" parent="Canvas" unique_id=438374629]
+texture_filter = 1
+position = Vector2(1100, 820)
+amount = 34
+texture = ExtResource("4_48ryc")
+lifetime = 9.0
+preprocess = 9.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(900, 240)
+direction = Vector2(0.3, -1)
+spread = 30.0
+gravity = Vector2(4, -3)
+initial_velocity_min = 6.0
+initial_velocity_max = 18.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_6jp1x")
+
+[node name="Leaves" type="CPUParticles2D" parent="Canvas" unique_id=712176807]
+texture_filter = 1
+position = Vector2(700, -60)
+amount = 12
+texture = ExtResource("5_vhsb5")
+lifetime = 16.0
+preprocess = 16.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1100, 30)
+direction = Vector2(1, 0.7)
+spread = 20.0
+gravity = Vector2(8, 22)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -80.0
+angular_velocity_max = 80.0
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 7.0
+color_ramp = SubResource("Gradient_dslam")
+
+[node name="New" type="TextureButton" parent="Canvas" unique_id=1419835761]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 471.0
+offset_right = 102.0
+offset_bottom = 471.0
+focus_neighbor_top = NodePath("../Exit")
+focus_neighbor_bottom = NodePath("../Continue")
+texture_normal = ExtResource("6_hwfsl")
+texture_pressed = ExtResource("7_a04p5")
+texture_hover = ExtResource("8_b5gwo")
+texture_disabled = ExtResource("9_0ndyk")
+texture_focused = ExtResource("8_b5gwo")
+
+[node name="Continue" type="TextureButton" parent="Canvas" unique_id=284614968]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 565.0
+offset_right = 102.0
+offset_bottom = 565.0
+focus_neighbor_top = NodePath("../New")
+focus_neighbor_bottom = NodePath("../Settings")
+texture_normal = ExtResource("10_0qewb")
+texture_pressed = ExtResource("11_mhjd8")
+texture_hover = ExtResource("12_d3h35")
+texture_disabled = ExtResource("13_v8lyk")
+texture_focused = ExtResource("12_d3h35")
+
+[node name="Settings" type="TextureButton" parent="Canvas" unique_id=61355209]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 658.0
+offset_right = 102.0
+offset_bottom = 658.0
+focus_neighbor_top = NodePath("../Continue")
+focus_neighbor_bottom = NodePath("../Exit")
+texture_normal = ExtResource("14_ruys5")
+texture_pressed = ExtResource("15_jlmas")
+texture_hover = ExtResource("16_qfcyc")
+texture_disabled = ExtResource("17_spe5f")
+texture_focused = ExtResource("16_qfcyc")
+
+[node name="Exit" type="TextureButton" parent="Canvas" unique_id=685062223]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 752.0
+offset_right = 102.0
+offset_bottom = 752.0
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_bottom = NodePath("../New")
+texture_normal = ExtResource("18_jcbs5")
+texture_pressed = ExtResource("19_jamij")
+texture_hover = ExtResource("20_nsg6j")
+texture_disabled = ExtResource("21_qwtqu")
+texture_focused = ExtResource("20_nsg6j")
+
+[node name="Marker" type="Sprite2D" parent="Canvas" unique_id=1171099888]
+texture_filter = 1
+position = Vector2(78, 513)
+texture = ExtResource("22_dg0of")
+
+[node name="SettingsPanel" type="Control" parent="." unique_id=228142184]
+anchors_preset = 0
+script = ExtResource("23_21umf")
+
+[node name="Fade" type="ColorRect" parent="." unique_id=942668580]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=287080104]
+stream = ExtResource("24_bugl6")
+volume_db = -12.0
+
+[node name="Click" type="AudioStreamPlayer" parent="." unique_id=828504997]
+stream = ExtResource("25_leckd")
+volume_db = -2.0

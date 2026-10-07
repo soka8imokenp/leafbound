@@ -1,0 +1,5 @@
+.godot/
+.venv/
+*.import.tmp
+build/
+dist/
