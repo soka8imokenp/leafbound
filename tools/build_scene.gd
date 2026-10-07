@@ -561,6 +561,11 @@ func _ui() -> CanvasLayer:
 	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(fade)
 
+	var confirm := Control.new()
+	confirm.name = "Confirm"
+	confirm.set_script(load("res://scripts/confirm.gd"))
+	layer.add_child(confirm)
+
 	var pause := Control.new()
 	pause.name = "Pause"
 	pause.set_script(load("res://scripts/pause_menu.gd"))

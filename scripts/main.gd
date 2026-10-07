@@ -6,8 +6,11 @@ extends Node2D
 const DAY := Color(0.84, 0.78, 0.74)
 const NIGHT := Color(0.36, 0.38, 0.56)
 
+const CLAUDE_FM := "https://claude.fm"
+
 var night := false
 var radio_on := false
+var fm_on := false
 
 @onready var player: CharacterBody2D = $World/Player
 @onready var cam: Camera2D = $Camera
@@ -66,7 +69,7 @@ func _process(_dt: float) -> void:
 	if sleeper.visible:                             # slow breathing under the quilt
 		blanket.position.y = -1.0 if sin(Time.get_ticks_msec() * 0.0025) > 0.3 else 0.0
 	var ms := Time.get_ticks_msec()
-	var on := (ms / 90) % 2 == 0 if radio_on else (ms / 1400) % 3 != 0
+	var on := (ms / 90) % 2 == 0 if radio_on else (fm_on or (ms / 1400) % 3 != 0)
 	led.color = Color(0.55, 1.0, 0.45) if on else Color(0.2, 0.35, 0.18)
 
 
@@ -90,10 +93,33 @@ func interact(area: Area2D) -> void:
 		"radio":
 			radio_on = false
 			radio_sfx.stop()
+			await _claude_fm()
 		"sleep":
 			await _nap()
 	await get_tree().process_frame
 	player.busy = false
+
+
+func _claude_fm() -> void:
+	## Claude FM is a YouTube live stream: it opens in the browser, the game music pauses meanwhile
+	var confirm: Control = $UI/Confirm
+	if not fm_on:
+		if not await confirm.ask("Включить Claude FM?", "Лоу-фай радио откроется в браузере"):
+			return
+		if OS.get_environment("LB_AUTOTEST") == "":
+			OS.shell_open(CLAUDE_FM)
+		else:
+			print("would open ", CLAUDE_FM)
+		fm_on = true
+		settings.music.stream_paused = true
+		dialog.open(PackedStringArray(["Радио ловит волну. Где-то играет тёплый лоу-фай.", "Анзу: Музыка! Пико бы понравилось."]))
+	else:
+		if not await confirm.ask("Выключить Claude FM?", "Вкладку в браузере закрой сам"):
+			return
+		fm_on = false
+		settings.music.stream_paused = false
+		dialog.open(PackedStringArray(["Радио снова тихо шипит."]))
+	await dialog.finished
 
 
 func _fade(alpha: float, sec: float) -> void:

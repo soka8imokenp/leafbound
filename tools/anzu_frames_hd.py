@@ -92,13 +92,33 @@ for y in range(36, 56):
         if p[3] and tuple(p[:3]) != S and not (y < 40 and tuple(p[:3]) in (O, R)):
             side[y, x + 2] = p
 
+# ---- hand-drawn profile: art/anzu_side.aseprite, layer "Draw" (6 frames: idle 0-1, walk 2-5)
+import os, ase_dump
+drawn = []
+if os.path.exists('art/anzu_side.aseprite'):
+    ase = ase_dump.read('art/anzu_side.aseprite')
+    for i in range(len(ase['frames'])):
+        im = ase_dump.render_layer(ase, i, 'Draw')
+        drawn.append(None if im is None else np.array(im).astype(np.int32))
+use_drawn = len(drawn) >= 6 and all(d is not None and d[..., 3].any() for d in drawn)
+if use_drawn:
+    print('side frames: hand-drawn profile from art/anzu_side.aseprite')
+
+# ---- Gemini profile drawings (source/gemini/side_*.jpg), used when there is no hand-drawn profile
+gem = None
+if not use_drawn and os.path.exists('source/gemini/side_stand.jpg') and os.path.exists('source/gemini/side_walk.jpg'):
+    import gemini_side
+    gem = gemini_side.frames()
+    print('side frames: Gemini profile (source/gemini)')
+
 rows = [
     ('down_idle', [base, bob(base, 2)]),
     ('down_walk', [lift(base, 'L', 4), bob(base, -2), lift(base, 'R', 4), bob(base, -2)]),
     ('up_idle', [back, bob(back, 2)]),
     ('up_walk', [lift(back, 'L', 4), bob(back, -2), lift(back, 'R', 4), bob(back, -2)]),
-    ('side_idle', [side, bob(side, 2)]),
-    ('side_walk', [shift_block(lift(side, 'L', 4), 99, 122, 66, 80, dx=3), bob(side, -2),
+    ('side_idle', drawn[0:2] if use_drawn else gem['side_idle'] if gem else [side, bob(side, 2)]),
+    ('side_walk', drawn[2:6] if use_drawn else gem['side_walk'] if gem else
+                  [shift_block(lift(side, 'L', 4), 99, 122, 66, 80, dx=3), bob(side, -2),
                    shift_block(lift(side, 'R', 4), 99, 122, 48, 62, dx=3), bob(side, -2)]),
 ]
 sheet = np.zeros((128 * len(rows), 128 * 4, 4), np.int32)

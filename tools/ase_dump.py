@@ -64,3 +64,58 @@ if __name__ == '__main__':
           'layers', [(l['name'], l['visible']) for l in a['layers']], 'tags', a['tags'])
     for i in range(len(a['frames'])):
         render(a, i).save(f"{out}/{base}_{i}.png")
+
+
+# ---------------------------------------------------------------- writer (RGBA, layers, tags)
+def _chunk(ctype, data):
+    return struct.pack('<IH', len(data) + 6, ctype) + data
+
+
+def _str(s):
+    b = s.encode('utf8')
+    return struct.pack('<H', len(b)) + b
+
+
+def write(path, W, H, layers, frames, tags=(), duration=100):
+    """layers: [(name, opacity 0-255, editable)]; frames: [{layer_index: RGBA uint8 array HxWx4}];
+    tags: [(name, from, to)]"""
+    import numpy as np
+    out = b''
+    for fi, cels in enumerate(frames):
+        chunks = []
+        if fi == 0:
+            chunks.append(_chunk(0x2007, struct.pack('<HHI8x', 1, 0, 0)))            # sRGB profile
+            pal = struct.pack('<III8x', 2, 0, 1) + struct.pack('<HBBBB', 0, 0, 0, 0, 255) + struct.pack('<HBBBB', 0, 255, 255, 255, 255)
+            chunks.append(_chunk(0x2019, pal))
+            for (name, opac, editable) in layers:
+                flags = 1 | (2 if editable else 0)
+                chunks.append(_chunk(0x2004, struct.pack('<HHHHHHB3x', flags, 0, 0, 0, 0, 0, opac) + _str(name)))
+            if tags:
+                t = struct.pack('<H8x', len(tags))
+                for (name, a, b) in tags:
+                    t += struct.pack('<HHBH6x3xB', a, b, 0, 0, 0) + _str(name)
+                chunks.append(_chunk(0x2018, t))
+        for li, img in sorted(cels.items()):
+            img = np.ascontiguousarray(img.astype(np.uint8))
+            h, w = img.shape[:2]
+            body = struct.pack('<HhhBHh5x', li, 0, 0, 255, 2, 0) + struct.pack('<HH', w, h) + zlib.compress(img.tobytes())
+            chunks.append(_chunk(0x2005, body))
+        data = b''.join(chunks)
+        out += struct.pack('<IHHH2xI', 16 + len(data), 0xF1FA, min(len(chunks), 0xFFFF), duration, len(chunks)) + data
+    header = struct.pack('<IHHHHHIHII', 128 + len(out), 0xA5E0, len(frames), W, H, 32, 1, 100, 0, 0)
+    header += struct.pack('<B3xHBBhhHH', 0, 0, 1, 1, 0, 0, 16, 16)
+    header = header.ljust(128, b'\0')
+    open(path, 'wb').write(header + out)
+
+
+def render_layer(a, fi, name):
+    """one named layer of frame fi (None if the layer has no cel there)"""
+    li = next((i for i, l in enumerate(a['layers']) if l['name'] == name), None)
+    if li is None: return None
+    img = Image.new('RGBA', (a['W'], a['H']), (0, 0, 0, 0)); hit = False
+    for c in a['frames'][fi]['cels']:
+        if c['layer'] != li: continue
+        if 'link' in c: c = next(k for k in a['frames'][c['link']]['cels'] if k['layer'] == li)
+        im = Image.frombytes('RGBA', (c['w'], c['h']), c['px'])
+        img.alpha_composite(im, (max(c['x'], 0), max(c['y'], 0)), (max(-c['x'], 0), max(-c['y'], 0))); hit = True
+    return img if hit else None

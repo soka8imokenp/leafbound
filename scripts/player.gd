@@ -4,7 +4,10 @@ extends CharacterBody2D
 const SPEED := 52.0
 const REACH := {"down": Vector2(0, 7), "up": Vector2(0, -9), "left": Vector2(-10, -2), "right": Vector2(10, -2)}
 
-var facing := "down"
+const FACE_CAMERA_AFTER := 0.35          # s standing still before she turns back to us
+
+var facing := "down"                    # last walking direction (also where she reaches)
+var idle_time := 0.0
 var busy := false
 var target: Area2D = null
 
@@ -20,7 +23,7 @@ func _ready() -> void:
 	spr.play("down_idle")
 
 
-func _physics_process(_dt: float) -> void:
+func _physics_process(dt: float) -> void:
 	var dir := Vector2.ZERO
 	if not busy:
 		dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -33,8 +36,11 @@ func _physics_process(_dt: float) -> void:
 			facing = "right" if dir.x > 0 else "left"
 		else:
 			facing = "down" if dir.y > 0 else "up"
-	var view := "side" if facing == "left" or facing == "right" else facing
-	spr.flip_h = facing == "left"
+	idle_time = 0.0 if moving else idle_time + dt
+	# walking shows the direction; standing still she turns to face the camera
+	var look := facing if moving or idle_time < FACE_CAMERA_AFTER else "down"
+	var view := "side" if look == "left" or look == "right" else look
+	spr.flip_h = look == "left"
 	var anim := view + ("_walk" if moving else "_idle")
 	if spr.animation != anim:
 		spr.play(anim)

@@ -10,6 +10,7 @@ var frame := 0
 func _ready() -> void:
 	out = OS.get_environment("LB_AUTOTEST")
 	record = OS.get_environment("LB_RECORD") != ""
+	get_window().size = Vector2i(1152, 648)
 	if OS.get_environment("LB_LOWRES") != "":
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	_run.call_deferred()
@@ -95,6 +96,20 @@ func _run() -> void:
 	_hold("move_down", 0.9)
 	await _wait(1.2)
 	await _shot("08_night_walk")
+	# radio -> Claude FM confirm
+	player.position = Vector2(115, 126)
+	player.facing = "up"
+	await _wait(0.3)
+	print("radio target ", player.target.title if player.target else "-")
+	await _press("interact")
+	await _dialog_through(4)
+	await _wait(0.4)
+	await _shot("08b_fm_confirm")
+	await _press("ui_accept")
+	await _wait(0.6)
+	await _shot("08c_fm_on")
+	await _dialog_through(2)
+	await _wait(0.3)
 	await _press("pause")
 	await _wait(0.5)
 	await _shot("09_pause")
