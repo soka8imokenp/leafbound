@@ -57,6 +57,9 @@ godot --headless --path . --export-pack "Linux" build/Leafbound.pck
 cp build/Leafbound.pck dist/Leafbound/ && (cd dist && zip -qr9 Leafbound-linux.zip Leafbound)
 ```
 
+Windows: тот же `Leafbound.pck` + официальный `Godot_v4.7.2-stable_win64.exe`, переименованный в `Leafbound.exe`
+(`dist/Leafbound-windows/`, архив `Leafbound-windows.zip`). Экспорт-шаблоны не нужны.
+
 Бинарник рядом с одноимённым `.pck` сразу запускает игру. Рендер — Compatibility (OpenGL 3.3), чтобы шло на слабом железе.
 Реплики предметов хранятся строкой с переносами (`text`), а не PackedStringArray: в Godot 4.7 массив терялся при экспорте.
 
