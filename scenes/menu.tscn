@@ -1,32 +1,33 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/menu.gd" id="1_ffqrc"]
-[ext_resource type="Texture2D" path="res://art/menu/bg.png" id="2_x16fv"]
-[ext_resource type="Texture2D" path="res://art/menu/logo_leaf.png" id="3_g54pe"]
-[ext_resource type="Texture2D" path="res://art/menu/mote.png" id="4_48ryc"]
-[ext_resource type="Texture2D" path="res://art/menu/leaf.png" id="5_vhsb5"]
-[ext_resource type="Texture2D" path="res://art/menu/btn0.png" id="6_hwfsl"]
-[ext_resource type="Texture2D" path="res://art/menu/btn0_pressed.png" id="7_a04p5"]
-[ext_resource type="Texture2D" path="res://art/menu/btn0_hover.png" id="8_b5gwo"]
-[ext_resource type="Texture2D" path="res://art/menu/btn0_disabled.png" id="9_0ndyk"]
-[ext_resource type="Texture2D" path="res://art/menu/btn1.png" id="10_0qewb"]
-[ext_resource type="Texture2D" path="res://art/menu/btn1_pressed.png" id="11_mhjd8"]
-[ext_resource type="Texture2D" path="res://art/menu/btn1_hover.png" id="12_d3h35"]
-[ext_resource type="Texture2D" path="res://art/menu/btn1_disabled.png" id="13_v8lyk"]
-[ext_resource type="Texture2D" path="res://art/menu/btn2.png" id="14_ruys5"]
-[ext_resource type="Texture2D" path="res://art/menu/btn2_pressed.png" id="15_jlmas"]
-[ext_resource type="Texture2D" path="res://art/menu/btn2_hover.png" id="16_qfcyc"]
-[ext_resource type="Texture2D" path="res://art/menu/btn2_disabled.png" id="17_spe5f"]
-[ext_resource type="Texture2D" path="res://art/menu/btn3.png" id="18_jcbs5"]
-[ext_resource type="Texture2D" path="res://art/menu/btn3_pressed.png" id="19_jamij"]
-[ext_resource type="Texture2D" path="res://art/menu/btn3_hover.png" id="20_nsg6j"]
-[ext_resource type="Texture2D" path="res://art/menu/btn3_disabled.png" id="21_qwtqu"]
-[ext_resource type="Texture2D" path="res://art/menu/leaf_big.png" id="22_dg0of"]
-[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="23_21umf"]
-[ext_resource type="AudioStream" path="res://sfx/blip.wav" id="24_bugl6"]
-[ext_resource type="AudioStream" path="res://sfx/step.wav" id="25_leckd"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_x16fv"]
+[ext_resource type="Texture2D" path="res://art/menu/bg.png" id="2_g54pe"]
+[ext_resource type="Script" path="res://scripts/living_sky.gd" id="3_48ryc"]
+[ext_resource type="Texture2D" path="res://art/menu/logo_leaf.png" id="4_vhsb5"]
+[ext_resource type="Texture2D" path="res://art/menu/mote.png" id="5_hwfsl"]
+[ext_resource type="Texture2D" path="res://art/menu/leaf.png" id="6_a04p5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0.png" id="7_b5gwo"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_pressed.png" id="8_0ndyk"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_hover.png" id="9_0qewb"]
+[ext_resource type="Texture2D" path="res://art/menu/btn0_disabled.png" id="10_mhjd8"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1.png" id="11_d3h35"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_pressed.png" id="12_v8lyk"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_hover.png" id="13_ruys5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn1_disabled.png" id="14_jlmas"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2.png" id="15_qfcyc"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_pressed.png" id="16_spe5f"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_hover.png" id="17_jcbs5"]
+[ext_resource type="Texture2D" path="res://art/menu/btn2_disabled.png" id="18_jamij"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3.png" id="19_nsg6j"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_pressed.png" id="20_qwtqu"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_hover.png" id="21_dg0of"]
+[ext_resource type="Texture2D" path="res://art/menu/btn3_disabled.png" id="22_21umf"]
+[ext_resource type="Texture2D" path="res://art/menu/leaf_big.png" id="23_bugl6"]
+[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="24_leckd"]
+[ext_resource type="AudioStream" path="res://sfx/blip.wav" id="25_tg78l"]
+[ext_resource type="AudioStream" path="res://sfx/step.wav" id="26_055ta"]
 
-[sub_resource type="Shader" id="Shader_tg78l"]
+[sub_resource type="Shader" id="Shader_6jp1x"]
 code = "
 shader_type canvas_item;
 // grass in the lower part sways by whole source pixels
@@ -40,49 +41,64 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_055ta"]
-shader = SubResource("Shader_tg78l")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dslam"]
+shader = SubResource("Shader_6jp1x")
 
-[sub_resource type="Gradient" id="Gradient_6jp1x"]
+[sub_resource type="Gradient" id="Gradient_moj2y"]
 offsets = PackedFloat32Array(0, 1, 0.25, 0.75)
 colors = PackedColorArray(1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0, 1, 0.98, 0.85, 0.7, 1, 0.98, 0.85, 0.7)
 
-[sub_resource type="Gradient" id="Gradient_dslam"]
+[sub_resource type="Gradient" id="Gradient_al2sc"]
 offsets = PackedFloat32Array(0, 1, 0.25, 0.75)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1)
 
-[node name="Menu" type="Control" unique_id=1708599044]
+[node name="Menu" type="Control" unique_id=539479196]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_ffqrc")
+script = ExtResource("1_x16fv")
 
-[node name="Canvas" type="Control" parent="." unique_id=2111657181]
+[node name="Canvas" type="Control" parent="." unique_id=676631493]
 texture_filter = 4
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.25, 0.25)
 
-[node name="Bg" type="TextureRect" parent="Canvas" unique_id=1401586504]
-material = SubResource("ShaderMaterial_055ta")
+[node name="Bg" type="TextureRect" parent="Canvas" unique_id=121745731]
+material = SubResource("ShaderMaterial_dslam")
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("2_x16fv")
+texture = ExtResource("2_g54pe")
 
-[node name="LogoLeaf" type="Sprite2D" parent="Canvas" unique_id=2117221702]
+[node name="Mist" type="Control" parent="Canvas" unique_id=512825726]
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("3_48ryc")
+virtual_size = Vector2i(256, 144)
+cloud_amount = 0.5
+cloud_scale = 1.5
+wind = 0.6
+overlay_only = true
+overlay_alpha = 0.42
+fade_y = Vector2(0.42, 0.68)
+hole_a = Vector4(0.06, 0.07, 0.42, 0.38)
+hole_b = Vector4(0.04, 0.42, 0.17, 0.79)
+
+[node name="LogoLeaf" type="Sprite2D" parent="Canvas" unique_id=1641142177]
 position = Vector2(452, 252)
-texture = ExtResource("3_g54pe")
+texture = ExtResource("4_vhsb5")
 centered = false
 offset = Vector2(-72, -172)
 
-[node name="Motes" type="CPUParticles2D" parent="Canvas" unique_id=1567546138]
+[node name="Motes" type="CPUParticles2D" parent="Canvas" unique_id=2066845923]
 texture_filter = 1
 position = Vector2(1100, 820)
 amount = 34
-texture = ExtResource("4_48ryc")
+texture = ExtResource("5_hwfsl")
 lifetime = 9.0
 preprocess = 9.0
 local_coords = true
@@ -95,13 +111,13 @@ initial_velocity_min = 6.0
 initial_velocity_max = 18.0
 scale_amount_min = 2.0
 scale_amount_max = 4.0
-color_ramp = SubResource("Gradient_6jp1x")
+color_ramp = SubResource("Gradient_moj2y")
 
-[node name="Leaves" type="CPUParticles2D" parent="Canvas" unique_id=584664846]
+[node name="Leaves" type="CPUParticles2D" parent="Canvas" unique_id=2119425351]
 texture_filter = 1
 position = Vector2(700, -60)
 amount = 12
-texture = ExtResource("5_vhsb5")
+texture = ExtResource("6_a04p5")
 lifetime = 16.0
 preprocess = 16.0
 local_coords = true
@@ -117,9 +133,9 @@ angular_velocity_max = 80.0
 angle_max = 360.0
 scale_amount_min = 5.0
 scale_amount_max = 7.0
-color_ramp = SubResource("Gradient_dslam")
+color_ramp = SubResource("Gradient_al2sc")
 
-[node name="New" type="TextureButton" parent="Canvas" unique_id=160325238]
+[node name="New" type="TextureButton" parent="Canvas" unique_id=81431259]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 471.0
@@ -127,13 +143,13 @@ offset_right = 102.0
 offset_bottom = 471.0
 focus_neighbor_top = NodePath("../Exit")
 focus_neighbor_bottom = NodePath("../Continue")
-texture_normal = ExtResource("6_hwfsl")
-texture_pressed = ExtResource("7_a04p5")
-texture_hover = ExtResource("8_b5gwo")
-texture_disabled = ExtResource("9_0ndyk")
-texture_focused = ExtResource("8_b5gwo")
+texture_normal = ExtResource("7_b5gwo")
+texture_pressed = ExtResource("8_0ndyk")
+texture_hover = ExtResource("9_0qewb")
+texture_disabled = ExtResource("10_mhjd8")
+texture_focused = ExtResource("9_0qewb")
 
-[node name="Continue" type="TextureButton" parent="Canvas" unique_id=1031007652]
+[node name="Continue" type="TextureButton" parent="Canvas" unique_id=2062520006]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 565.0
@@ -141,13 +157,13 @@ offset_right = 102.0
 offset_bottom = 565.0
 focus_neighbor_top = NodePath("../New")
 focus_neighbor_bottom = NodePath("../Settings")
-texture_normal = ExtResource("10_0qewb")
-texture_pressed = ExtResource("11_mhjd8")
-texture_hover = ExtResource("12_d3h35")
-texture_disabled = ExtResource("13_v8lyk")
-texture_focused = ExtResource("12_d3h35")
+texture_normal = ExtResource("11_d3h35")
+texture_pressed = ExtResource("12_v8lyk")
+texture_hover = ExtResource("13_ruys5")
+texture_disabled = ExtResource("14_jlmas")
+texture_focused = ExtResource("13_ruys5")
 
-[node name="Settings" type="TextureButton" parent="Canvas" unique_id=1379353794]
+[node name="Settings" type="TextureButton" parent="Canvas" unique_id=962775166]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 658.0
@@ -155,13 +171,13 @@ offset_right = 102.0
 offset_bottom = 658.0
 focus_neighbor_top = NodePath("../Continue")
 focus_neighbor_bottom = NodePath("../Exit")
-texture_normal = ExtResource("14_ruys5")
-texture_pressed = ExtResource("15_jlmas")
-texture_hover = ExtResource("16_qfcyc")
-texture_disabled = ExtResource("17_spe5f")
-texture_focused = ExtResource("16_qfcyc")
+texture_normal = ExtResource("15_qfcyc")
+texture_pressed = ExtResource("16_spe5f")
+texture_hover = ExtResource("17_jcbs5")
+texture_disabled = ExtResource("18_jamij")
+texture_focused = ExtResource("17_jcbs5")
 
-[node name="Exit" type="TextureButton" parent="Canvas" unique_id=1393392627]
+[node name="Exit" type="TextureButton" parent="Canvas" unique_id=574752967]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 752.0
@@ -169,32 +185,32 @@ offset_right = 102.0
 offset_bottom = 752.0
 focus_neighbor_top = NodePath("../Settings")
 focus_neighbor_bottom = NodePath("../New")
-texture_normal = ExtResource("18_jcbs5")
-texture_pressed = ExtResource("19_jamij")
-texture_hover = ExtResource("20_nsg6j")
-texture_disabled = ExtResource("21_qwtqu")
-texture_focused = ExtResource("20_nsg6j")
+texture_normal = ExtResource("19_nsg6j")
+texture_pressed = ExtResource("20_qwtqu")
+texture_hover = ExtResource("21_dg0of")
+texture_disabled = ExtResource("22_21umf")
+texture_focused = ExtResource("21_dg0of")
 
-[node name="Marker" type="Sprite2D" parent="Canvas" unique_id=1397343224]
+[node name="Marker" type="Sprite2D" parent="Canvas" unique_id=846861274]
 texture_filter = 1
 position = Vector2(78, 513)
-texture = ExtResource("22_dg0of")
+texture = ExtResource("23_bugl6")
 
-[node name="SettingsPanel" type="Control" parent="." unique_id=1630256457]
+[node name="SettingsPanel" type="Control" parent="." unique_id=122470469]
 anchors_preset = 0
-script = ExtResource("23_21umf")
+script = ExtResource("24_leckd")
 
-[node name="Fade" type="ColorRect" parent="." unique_id=1940637531]
+[node name="Fade" type="ColorRect" parent="." unique_id=20544303]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=838224863]
-stream = ExtResource("24_bugl6")
+[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=1379869930]
+stream = ExtResource("25_tg78l")
 volume_db = -12.0
 
-[node name="Click" type="AudioStreamPlayer" parent="." unique_id=381625262]
-stream = ExtResource("25_leckd")
+[node name="Click" type="AudioStreamPlayer" parent="." unique_id=567686632]
+stream = ExtResource("26_055ta")
 volume_db = -2.0

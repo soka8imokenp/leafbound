@@ -45,6 +45,8 @@ func _shot(name: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png("%s/%s.png" % [out, name])
 	print("shot ", name)
+	if name == OS.get_environment("LB_STOP_AFTER"):
+		get_tree().quit()
 
 
 func _wait(sec: float) -> void:
@@ -62,7 +64,26 @@ func _dialog_through(n: int) -> void:
 		await _press("interact")
 
 
+func _demo_dialog() -> void:
+	## LB_DLG_DEMO=1: only the dialogue look - an Anzu line with a portrait for every mood, then narration
+	var dlg = get_tree().current_scene.get_node("UI/Dialog")
+	await _wait(0.8)
+	var lines := PackedStringArray(["Анзу: Если ты слышишь — значит, оно живо.", "Анзу|happy: Рыжик тёплый-тёплый... Мягкий!",
+		"Анзу|shy: Ой... Анзу уснула?", "Анзу|think: Пико говорит, сквозь помехи иногда слышно Землю.",
+		"Хлеб ещё тёплый. И чашка травяного чая."])
+	dlg.open(lines)
+	for i in lines.size():
+		await _wait(2.6)
+		await _shot("dlg_%d" % i)
+		await _press("interact")
+		await _press("interact") if dlg.visible and i < lines.size() - 1 and false else null
+	get_tree().quit()
+
+
 func _run() -> void:
+	if OS.get_environment("LB_DLG_DEMO") != "":
+		await _demo_dialog()
+		return
 	var player = get_tree().current_scene.get_node("World/Player")
 	await _wait(1.0)
 	await _shot("01_start")
@@ -76,7 +97,7 @@ func _run() -> void:
 	await _wait(0.5)
 	print("player at ", player.position, " target ", player.target.title if player.target else "-")
 	await _press("interact")
-	await _wait(0.5)
+	await _wait(2.4)
 	await _shot("04_cat_dialog")
 	await _dialog_through(3)
 	await _wait(0.3)

@@ -27,7 +27,7 @@ func _init() -> void:
 	var c := Control.new()
 	c.name = "Canvas"
 	c.size = Vector2(1920, 1080)
-	c.scale = Vector2(0.2, 0.2)
+	c.scale = Vector2(0.25, 0.25)
 	c.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	menu.add_child(c)
 
@@ -41,6 +41,24 @@ func _init() -> void:
 	mat.shader = sh
 	bg.material = mat
 	c.add_child(bg)
+
+	# living mist: pixel clouds drift across the sky in front of the picture (they fade out over the logo, the
+	# buttons and the lower hills)
+	var mist := Control.new()
+	mist.name = "Mist"
+	mist.set_script(load("res://scripts/living_sky.gd"))
+	mist.size = Vector2(1920, 1080)
+	mist.set("virtual_size", Vector2i(256, 144))
+	mist.set("overlay_only", true)
+	mist.set("tod", 0.5)
+	mist.set("cloud_amount", 0.5)
+	mist.set("cloud_scale", 1.5)
+	mist.set("wind", 0.6)
+	mist.set("overlay_alpha", 0.42)
+	mist.set("fade_y", Vector2(0.42, 0.68))
+	mist.set("hole_a", Vector4(0.06, 0.07, 0.42, 0.38))
+	mist.set("hole_b", Vector4(0.04, 0.42, 0.17, 0.79))
+	c.add_child(mist)
 
 	# logo leaf, pivot on its stem
 	var leaf := Sprite2D.new()

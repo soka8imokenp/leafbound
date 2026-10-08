@@ -12,7 +12,7 @@ static func canvas(name: String) -> Control:
 	var c := Control.new()
 	c.name = name
 	c.size = Vector2(1920, 1080)
-	c.scale = Vector2(0.2, 0.2)
+	c.scale = Vector2(0.25, 0.25)
 	c.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	return c
 

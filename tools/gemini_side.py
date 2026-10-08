@@ -1,16 +1,16 @@
 # Gemini profile drawings (2000 px, drawn on a 128 grid) -> clean 128x128 frames in Anzu's palette,
 # white background and baked ground shadow removed, flipped to face right (the game mirrors for left).
-import sys; sys.path.insert(0, 'tools')
+import sys, os; sys.path.insert(0, 'tools')
 from pix import *
 from PIL import Image
 
 K, D, R, O, S, G = (7, 1, 1), (81, 35, 39), (193, 61, 41), (241, 132, 48), (244, 213, 193), (132, 178, 87)
 PAL = [K, D, R, O, S, G, (255, 255, 255)]                    # white = background
-STEP = 2000 / 128
 
 
 def to_grid(path):
     a = np.array(Image.open(path).convert('RGB')).astype(np.float32)
+    STEP = a.shape[1] / 128.0                       # 2000 px originals or 1024 px screen-grabs alike
     out = np.zeros((128, 128, 4), np.int32)
     pal = np.array(PAL, np.float32)
     for gy in range(128):
@@ -68,30 +68,65 @@ def clean_green(f):
     return f
 
 
-def swap_legs(f, y0=100, cx=None):
-    """other contact pose: legs mirrored around the body centre, each boot turned back toe-forward"""
-    g = f.copy()
-    legs = f[y0:, :].copy()
-    g[y0:, :] = 0
-    ys, xs = np.where(legs[..., 3] > 0)
-    c = cx if cx is not None else (xs.min() + xs.max()) / 2.0
-    for y, x in zip(ys, xs):
-        X = int(round(2 * c - x))
-        if 0 <= X < 128: g[y0 + y, X] = legs[y, x]
-    # turn each boot back: flip every connected blob of the lower boot rows within its own bbox
+def despeckle(f, min_area=14):
+    """delete detached fragments: opaque blobs (8-neighbour, bridged over a 1 px gap) smaller than min_area"""
     from scipy import ndimage
-    region = g[108:, :, 3] > 0
-    lab, n = ndimage.label(region)
+    m = f[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_dilation(m, structure=np.ones((3, 3))))
     for k in range(1, n + 1):
-        yy, xx = np.where(lab == k)
-        x0, x1 = xx.min(), xx.max()
-        blk = g[108 + yy.min():108 + yy.max() + 1, x0:x1 + 1].copy()
-        msk = (lab[yy.min():yy.max() + 1, x0:x1 + 1] == k)
-        flipped, fm = blk[:, ::-1], msk[:, ::-1]
-        tgt = g[108 + yy.min():108 + yy.max() + 1, x0:x1 + 1]
-        tgt[msk] = 0
-        tgt[fm] = flipped[fm]
-    return g
+        blob = (lab == k) & m
+        if blob.sum() < min_area:
+            f[blob] = 0
+    return f
+
+
+def tidy(f):
+    """outline discipline: (1) pixels sitting just OUTSIDE the dark outline are JPEG fringe -> erase;
+    (2) holes enclosed by the sprite (the white eye highlights read as background) -> her highlight colour"""
+    from scipy import ndimage
+    for _ in range(2):
+        m = f[..., 3] > 0
+        for y in range(1, 127):
+            for x in range(1, 127):
+                if not m[y, x] or tuple(f[y, x, :3]) == K: continue
+                for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+                    if not m[y + dy, x + dx] and m[y - dy, x - dx] and tuple(f[y - dy, x - dx, :3]) == K:
+                        f[y, x] = 0
+                        break
+    m = f[..., 3] > 0
+    for y, x in zip(*np.where(ndimage.binary_fill_holes(m) & ~m)):
+        f[y, x] = (*S, 255)
+    return f
+
+
+def isolated(f, keep=(60, 36, 100, 56)):
+    """one-pixel noise: a pixel whose colour appears in none of its 8 neighbours becomes the neighbours' most
+    common colour (the eye box is left alone, its highlights are meant to be single pixels)"""
+    from collections import Counter
+    x0, y0, x1, y1 = keep
+    g = f.copy()
+    for y in range(1, 127):
+        for x in range(1, 127):
+            if not f[y, x, 3] or (x0 <= x <= x1 and y0 <= y <= y1): continue
+            c = tuple(f[y, x, :3])
+            nb = [tuple(f[y + dy, x + dx, :3]) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                  if (dy or dx) and f[y + dy, x + dx, 3]]
+            if len(nb) >= 4 and c not in nb:
+                g[y, x, :3] = Counter(nb).most_common(1)[0][0]
+    f[:] = g
+    return f
+
+
+def strays(f, y_min=106):
+    """eraser pass: below the knee a skin-coloured pixel with 2+ empty 4-neighbours is a JPEG leftover, not boot"""
+    for _ in range(3):
+        m = f[..., 3] > 0
+        for y in range(y_min, 128):
+            for x in range(1, 127):
+                if m[y, x] and tuple(f[y, x, :3]) == S:
+                    empty = (not m[y - 1, x]) + (not m[y + 1, x]) + (not m[y, x - 1]) + (not m[y, x + 1])
+                    if empty >= 2: f[y, x] = 0
+    return f
 
 
 def bob(f, dy):
@@ -101,8 +136,12 @@ def bob(f, dy):
 
 
 def frames():
-    stand = clean_green(drop_shadow(to_grid('source/gemini/side_stand.jpg'))[:, ::-1].copy())
-    walk = clean_green(drop_shadow(to_grid('source/gemini/side_walk.jpg'))[:, ::-1].copy())
-    walk2 = swap_legs(walk)
+    stand = tidy(strays(despeckle(clean_green(drop_shadow(to_grid('source/gemini/side_stand.jpg'))[:, ::-1].copy()))))
+    walk = tidy(strays(despeckle(clean_green(drop_shadow(to_grid('source/gemini/side_walk.jpg'))[:, ::-1].copy()))))
+    # One step pose only: a mirrored second one put the boots toe-backward. For a real second step
+    # ask Gemini for the opposite contact pose and save it as source/gemini/side_walk2.jpg.
+    walk2 = walk
+    if os.path.exists('source/gemini/side_walk2.jpg'):
+        walk2 = isolated(tidy(strays(despeckle(clean_green(drop_shadow(to_grid('source/gemini/side_walk2.jpg'))[:, ::-1].copy())))))
     return {'side_idle': [stand, bob(stand, 2)],
-            'side_walk': [walk, bob(stand, -2), walk2, bob(stand, -2)]}
+            'side_walk': [walk, bob(stand, -2), bob(walk2, -1) if walk2 is walk else walk2, bob(stand, -2)]}

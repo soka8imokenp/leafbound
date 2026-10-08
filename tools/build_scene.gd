@@ -33,6 +33,22 @@ func _init() -> void:
 	glass.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	main_root.add_child(glass)
 
+	# the sky behind the window panes: pixel sky clipped to the glass by a mask; time of day set from main.gd
+	var sky := Control.new()
+	sky.name = "WindowSky"
+	sky.set_script(load("res://scripts/living_sky.gd"))
+	sky.position = Vector2(109, 43)
+	sky.size = Vector2(29, 23)
+	sky.set("virtual_size", Vector2i(29, 23))
+	sky.set("mask", load("res://art/window_mask.png"))
+	sky.set("body_radius", 3.0)
+	sky.set("glow_amount", 0.0)
+	sky.set("cloud_scale", 0.42)
+	sky.set("cloud_amount", 0.5)
+	sky.set("horizon", 1.15)
+	sky.z_index = -9
+	main_root.add_child(sky)
+
 	var led := ColorRect.new()
 	led.name = "RadioLed"
 	led.position = Vector2(121, 87)
@@ -51,6 +67,7 @@ func _init() -> void:
 	world.add_child(_player())
 	_interactables()
 	_atmosphere()
+	main_root.add_child(_shadows())
 
 	var cam := Camera2D.new()
 	cam.name = "Camera"
@@ -62,6 +79,7 @@ func _init() -> void:
 	radio.position = Vector2(114, 88)
 	main_root.add_child(radio)
 
+	main_root.add_child(_fx())
 	main_root.add_child(_ui())
 
 	_own(main_root)
@@ -385,39 +403,39 @@ func _interactables() -> void:
 	var data := [
 		["Bed", "Кровать", Vector2(66, 136), Vector2(68, 70), "sleep", [
 			"Лоскутное одеяло. Каждый лоскут — из чьей-то старой рубашки.",
-			"Анзу: Прилягу ненадолго..."]],
+			"Анзу|think: Прилягу ненадолго..."]],
 		["Radio", "Радио", Vector2(115, 117), Vector2(30, 10), "radio", [
 			"Старое радио тихо шипит.",
 			"...ш-ш-ш... кх... сиг...нал... ш-ш...",
-			"Анзу: Пико говорит, сквозь помехи иногда слышно Землю.",
-			"Анзу: ...Сегодня она молчит."]],
+			"Анзу|think: Пико говорит, сквозь помехи иногда слышно Землю.",
+			"Анзу|think: ...Сегодня она молчит."]],
 		["Window", "Окно", Vector2(137, 100), Vector2(14, 10), "", [
 			"За окном — руины города, оплетённые корнями.",
-			"Анзу: Если ты слышишь — значит, оно живо."]],
+			"Анзу|think: Если ты слышишь — значит, оно живо."]],
 		["StoveUse", "Печка", Vector2(162, 128), Vector2(44, 12), "stove", [
 			"Печка потрескивает. Пахнет смолой и травяным чаем.",
-			"Анзу: Чайник вот-вот закипит!"]],
+			"Анзу|happy: Чайник вот-вот закипит!"]],
 		["CatPet", "Рыжик", Vector2(170, 145), Vector2(40, 26), "pet", [
 			"Рыжик спит, свернувшись клубком.",
-			"Анзу: Рыжик тёплый-тёплый... Мягкий!",
+			"Анзу|happy: Рыжик тёплый-тёплый... Мягкий!",
 			"Мрр-р-р..."]],
 		["ShelfLook", "Полка", Vector2(201, 130), Vector2(10, 76), "", [
 			"Склянки с семенами и сушёными травами.",
 			"На каждой — подпись детским почерком.",
-			"Анзу: Это Анзу подписывала! Красиво же?"]],
+			"Анзу|happy: Это Анзу подписывала! Красиво же?"]],
 		["TableUse", "Стол", Vector2(98, 214), Vector2(104, 46), "", [
 			"Хлеб ещё тёплый. И чашка травяного чая.",
 			"Анзу отламывает кусочек.",
-			"Анзу: М-м! Вкусно!"]],
+			"Анзу|happy: М-м! Вкусно!"]],
 		["DoorUse", "Дверь", Vector2(212, 224), Vector2(46, 16), "", [
 			"Анзу: Пико просил дождаться его дома.",
-			"Анзу: ...Ладно. Ещё немного."]],
+			"Анзу|think: ...Ладно. Ещё немного."]],
 		["Scarf", "Шарф", Vector2(34, 194), Vector2(16, 30), "", [
 			"Тёплый шарф. Его связали очень давно, ещё до Нексара.",
-			"Анзу: Пахнет бабушкой..."]],
+			"Анзу|think: Пахнет бабушкой..."]],
 		["Shoes", "Ботинки", Vector2(162, 217), Vector2(28, 20), "", [
 			"Старые ботинки. Уже малы, но выбросить жалко.",
-			"Анзу: Анзу тогда была совсем маленькая!"]],
+			"Анзу|happy: Анзу тогда была совсем маленькая!"]],
 	]
 	for d in data:
 		var a := Area2D.new()
@@ -471,88 +489,11 @@ func _atmosphere() -> void:
 func _ui() -> CanvasLayer:
 	var layer := CanvasLayer.new()
 	layer.name = "UI"
+	layer.layer = 10
 	var font: Font = load("res://fonts/Rubik.ttf")
 
-	var dlg := Control.new()
-	dlg.name = "Dialog"
-	dlg.set_script(load("res://scripts/dialog.gd"))
-	dlg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	dlg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.add_child(dlg)
-
-	var box := Panel.new()
-	box.name = "Box"
-	box.position = Vector2(28, 158)
-	box.size = Vector2(328, 50)
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.16, 0.11, 0.08, 0.94)
-	sb.border_color = Color(0.72, 0.52, 0.3)
-	sb.set_border_width_all(2)
-	sb.set_corner_radius_all(3)
-	box.add_theme_stylebox_override("panel", sb)
-	dlg.add_child(box)
-
-	var text := Label.new()
-	text.name = "Text"
-	text.position = Vector2(10, 7)
-	text.size = Vector2(306, 38)
-	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	text.add_theme_font_override("font", font)
-	text.add_theme_font_size_override("font_size", 9)
-	text.add_theme_color_override("font_color", Color(0.98, 0.93, 0.84))
-	box.add_child(text)
-
-	var tag := Panel.new()
-	tag.name = "NameTag"
-	tag.position = Vector2(8, -9)
-	tag.size = Vector2(36, 12)
-	var sb2 := StyleBoxFlat.new()
-	sb2.bg_color = Color(0.55, 0.3, 0.14)
-	sb2.border_color = Color(0.72, 0.52, 0.3)
-	sb2.set_border_width_all(1)
-	sb2.set_corner_radius_all(2)
-	tag.add_theme_stylebox_override("panel", sb2)
-	box.add_child(tag)
-	var nl := Label.new()
-	nl.name = "Label"
-	nl.position = Vector2(0, 0)
-	nl.size = Vector2(36, 12)
-	nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	nl.add_theme_font_override("font", font)
-	nl.add_theme_font_size_override("font_size", 7)
-	nl.add_theme_color_override("font_color", Color(1, 0.95, 0.85))
-	tag.add_child(nl)
-
-	var arrow := Label.new()
-	arrow.name = "Arrow"
-	arrow.text = "▼"
-	arrow.position = Vector2(314, 36)
-	arrow.add_theme_font_override("font", font)
-	arrow.add_theme_font_size_override("font_size", 6)
-	arrow.add_theme_color_override("font_color", Color(0.85, 0.65, 0.4))
-	box.add_child(arrow)
-
-	var blip := AudioStreamPlayer.new()
-	blip.name = "Blip"
-	blip.stream = load("res://sfx/blip.wav")
-	blip.volume_db = -14.0
-	blip.bus = "SFX"
-	dlg.add_child(blip)
-	var voice := AudioStreamPlayer.new()
-	voice.name = "Voice"
-	voice.bus = "SFX"
-	voice.volume_db = 0.0
-	dlg.add_child(voice)
-
-	var hint := Label.new()
-	hint.name = "Hint"
-	hint.text = "WASD / стрелки — ходить     E — действие     Esc — пауза"
-	hint.position = Vector2(6, 4)
-	hint.add_theme_font_override("font", font)
-	hint.add_theme_font_size_override("font_size", 6)
-	hint.add_theme_color_override("font_color", Color(1, 1, 1, 0.55))
-	layer.add_child(hint)
+	layer.add_child(_hud(font))
+	layer.add_child(_dialog())
 
 	var fade := ColorRect.new()
 	fade.name = "Fade"
@@ -571,3 +512,267 @@ func _ui() -> CanvasLayer:
 	pause.set_script(load("res://scripts/pause_menu.gd"))
 	layer.add_child(pause)
 	return layer
+
+
+# ---------------------------------------------------------------- side HUD
+func _card(pos: Vector2, size: Vector2) -> Panel:
+	var p := Panel.new()
+	p.position = pos
+	p.size = size
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.13, 0.09, 0.07, 0.92)
+	sb.border_color = Color(0.72, 0.52, 0.3)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(3)
+	p.add_theme_stylebox_override("panel", sb)
+	return p
+
+
+func _text(font: Font, txt: String, size: int, pos: Vector2, w: float, col: Color, center := true) -> Label:
+	var l := Label.new()
+	l.text = txt
+	l.position = pos
+	l.size = Vector2(w, size * 1.5)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if center else HORIZONTAL_ALIGNMENT_LEFT
+	l.add_theme_font_override("font", font)
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", col)
+	return l
+
+
+func _hud(font: Font) -> Control:
+	var hud := Control.new()
+	hud.name = "Hud"
+	hud.set_anchors_preset(Control.PRESET_FULL_RECT)
+	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	var left := _card(Vector2(10, 12), Vector2(92, 132))
+	left.name = "Left"
+	var frame := _card(Vector2(8, 8), Vector2(76, 66))
+	var fsb := StyleBoxFlat.new()
+	fsb.bg_color = Color(0.36, 0.3, 0.26)
+	fsb.border_color = Color(0.5, 0.36, 0.2)
+	fsb.set_border_width_all(1)
+	frame.add_theme_stylebox_override("panel", fsb)
+	left.add_child(frame)
+	var portrait := TextureRect.new()
+	var at := AtlasTexture.new()
+	at.atlas = load("res://art/anzu_sheet_hd.png")
+	at.region = Rect2(29, 5, 70, 62)
+	portrait.texture = at
+	portrait.position = Vector2(3, 2)
+	portrait.size = Vector2(70, 62)
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.add_child(portrait)
+	left.add_child(_text(font, "Анзу", 11, Vector2(0, 80), 92, Color(1, 0.94, 0.82)))
+	var sub := _text(font, "слышит Землю", 7, Vector2(0, 95), 92, Color(0.85, 0.7, 0.5))
+	left.add_child(sub)
+	var icon := TextureRect.new()
+	icon.name = "TimeIcon"
+	icon.texture = load("res://art/ui_sun.png")
+	icon.position = Vector2(26, 111)
+	icon.size = Vector2(9, 9)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	left.add_child(icon)
+	var tl := _text(font, "День", 8, Vector2(38, 108), 50, Color(1, 0.94, 0.82), false)
+	tl.name = "TimeLabel"
+	left.add_child(tl)
+	hud.add_child(left)
+
+	var right := _card(Vector2(378, 12), Vector2(92, 98))
+	right.name = "Right"
+	right.add_child(_text(font, "Управление", 8, Vector2(0, 7), 92, Color(0.85, 0.7, 0.5)))
+	var rows := [["WASD", "ходить"], ["E", "действие"], ["Esc", "пауза"], ["F11", "экран"]]
+	for i in rows.size():
+		right.add_child(_text(font, rows[i][0], 8, Vector2(8, 26 + i * 17), 38, Color(1, 0.84, 0.5), false))
+		right.add_child(_text(font, rows[i][1], 8, Vector2(46, 26 + i * 17), 44, Color(0.95, 0.9, 0.8), false))
+	hud.add_child(right)
+	return hud
+
+
+# ---------------------------------------------------------------- grade + bloom + vignette on the whole picture
+const GRADE := """
+shader_type canvas_item;
+uniform sampler2D screen_tex : hint_screen_texture, filter_linear_mipmap;
+uniform float bloom = 0.5;
+uniform float contrast = 1.12;
+uniform float saturation = 1.14;
+uniform float vignette = 0.6;
+void fragment() {
+	vec2 uv = SCREEN_UV;
+	vec3 c = texture(screen_tex, uv).rgb;
+	vec3 b = textureLod(screen_tex, uv, 3.0).rgb;
+	float bl = max(dot(b, vec3(0.299, 0.587, 0.114)) - 0.38, 0.0);
+	c += b * bl * bloom * vec3(1.0, 0.78, 0.5);
+	float l = dot(c, vec3(0.299, 0.587, 0.114));
+	c = mix(c, c * vec3(0.8, 0.9, 1.22), (1.0 - smoothstep(0.0, 0.5, l)) * 0.6);   // cool shadows
+	c = mix(c, c * vec3(1.14, 1.0, 0.82), smoothstep(0.3, 0.85, l) * 0.55);          // warm highlights
+	c = (c - 0.5) * contrast + 0.5;
+	float g = dot(c, vec3(0.299, 0.587, 0.114));
+	c = mix(vec3(g), c, saturation);
+	float d = distance(uv, vec2(0.5));
+	c *= 1.0 - smoothstep(0.32, 0.9, d) * vignette;
+	COLOR = vec4(clamp(c, 0.0, 1.0), 1.0);
+}
+"""
+
+
+func _fx() -> CanvasLayer:
+	var layer := CanvasLayer.new()
+	layer.name = "FX"
+	layer.layer = 5
+	var r := ColorRect.new()
+	r.name = "Grade"
+	r.set_anchors_preset(Control.PRESET_FULL_RECT)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sh := Shader.new()
+	sh.code = GRADE
+	var mat := ShaderMaterial.new()
+	mat.shader = sh
+	r.material = mat
+	layer.add_child(r)
+	return layer
+
+
+# ---------------------------------------------------------------- contact shadows under the hand-drawn props
+func _shadows() -> Node2D:
+	var n := Node2D.new()
+	n.name = "Shadows"
+	n.z_index = -8
+	for sdata in [["Bed", Vector2(70, 166), Vector2(1.22, 1.0)], ["Table", Vector2(98, 238), Vector2(1.7, 1.05)],
+			["Door", Vector2(214, 236), Vector2(1.1, 0.5)]]:
+		var sp := Sprite2D.new()
+		sp.name = sdata[0]
+		sp.texture = load("res://art/shadow_big.png")
+		sp.position = sdata[1]
+		sp.scale = sdata[2]
+		n.add_child(sp)
+	return n
+
+
+# ---------------------------------------------------------------- Hades-style dialogue: painted portrait, parchment box, name plate
+const BOX_POS := Vector2(700, 716)
+const BOX_SIZE := Vector2(1130, 276)
+
+
+func _nine(tex: String, margins: Array, pos: Vector2, size: Vector2) -> NinePatchRect:
+	var n := NinePatchRect.new()
+	n.texture = load(tex)
+	n.patch_margin_left = margins[0]
+	n.patch_margin_top = margins[1]
+	n.patch_margin_right = margins[2]
+	n.patch_margin_bottom = margins[3]
+	n.axis_stretch_horizontal = NinePatchRect.AXIS_STRETCH_MODE_STRETCH
+	n.axis_stretch_vertical = NinePatchRect.AXIS_STRETCH_MODE_STRETCH
+	n.position = pos
+	n.size = size
+	n.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return n
+
+
+func _label(font: Font, size: int, col: Color, pos: Vector2, sz: Vector2) -> Label:
+	var l := Label.new()
+	l.position = pos
+	l.size = sz
+	l.add_theme_font_override("font", font)
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", col)
+	return l
+
+
+func _dialog() -> Control:
+	var f_text: Font = load("res://fonts/AlegreyaSans-Medium.ttf")
+	var f_sc: Font = load("res://fonts/AlegreyaSC-Bold.ttf")
+	var f_it: Font = load("res://fonts/AlegreyaSans-MediumItalic.ttf")
+
+	var dlg := Control.new()
+	dlg.name = "Dialog"
+	dlg.set_script(load("res://scripts/dialog.gd"))
+	dlg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dlg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	var dim := ColorRect.new()
+	dim.name = "Dim"
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0.03, 0.02, 0.06, 0.0)
+	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dlg.add_child(dim)
+
+	# everything below is drawn on a 1920x1080 sheet scaled to the 480x270 screen: crisp, non-pixel art
+	var c := Control.new()
+	c.name = "Canvas"
+	c.size = Vector2(1920, 1080)
+	c.scale = Vector2(0.25, 0.25)
+	c.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dlg.add_child(c)
+
+	var portrait := TextureRect.new()
+	portrait.name = "Portrait"
+	portrait.size = Vector2(727, 973)
+	portrait.position = Vector2(30, 107)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_SCALE
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(portrait)
+
+	var box := _nine("res://art/dlg/box.png", [46, 46, 104, 74], BOX_POS, BOX_SIZE)
+	box.name = "Box"
+	c.add_child(box)
+	var text := _label(f_text, 56, Color(0.17, 0.13, 0.11), Vector2(70, 50), Vector2(BOX_SIZE.x - 150, BOX_SIZE.y - 90))
+	text.name = "Text"
+	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	text.set_meta("font_normal", f_text)
+	text.set_meta("font_italic", f_it)
+	box.add_child(text)
+	var arrow := TextureRect.new()
+	arrow.name = "Arrow"
+	arrow.texture = load("res://art/dlg/arrow.png")
+	arrow.position = Vector2(BOX_SIZE.x - 150, BOX_SIZE.y - 108)
+	arrow.size = Vector2(58, 58)
+	arrow.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(arrow)
+
+	var gold := TextureRect.new()
+	gold.name = "SprigGold"
+	gold.texture = load("res://art/dlg/sprig_gold.png")
+	gold.position = BOX_POS + Vector2(BOX_SIZE.x - 270, -92)
+	gold.size = Vector2(300, 180)
+	gold.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	gold.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(gold)
+
+	var plate := _nine("res://art/dlg/plate.png", [38, 32, 38, 32], BOX_POS + Vector2(46, -74), Vector2(600, 136))
+	plate.name = "Plate"
+	c.add_child(plate)
+	var name_label := _label(f_sc, 58, Color(0.98, 0.95, 0.88), Vector2(0, 8), Vector2(600, 68))
+	name_label.name = "Name"
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	plate.add_child(name_label)
+	var title_label := _label(f_text, 40, Color(0.74, 0.92, 0.52), Vector2(0, 72), Vector2(600, 48))
+	title_label.name = "Title"
+	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	plate.add_child(title_label)
+	var green := TextureRect.new()
+	green.name = "SprigGreen"
+	green.texture = load("res://art/dlg/sprig_green.png")
+	green.position = BOX_POS + Vector2(-96, -118)
+	green.size = Vector2(330, 180)
+	green.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	green.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(green)
+
+	var blip := AudioStreamPlayer.new()
+	blip.name = "Blip"
+	blip.stream = load("res://sfx/blip.wav")
+	blip.volume_db = -14.0
+	blip.bus = "SFX"
+	dlg.add_child(blip)
+	var voice := AudioStreamPlayer.new()
+	voice.name = "Voice"
+	voice.bus = "SFX"
+	voice.volume_db = 0.0
+	dlg.add_child(voice)
+	return dlg

@@ -4,7 +4,7 @@ extends Node2D
 @onready var settings: Node = get_node("/root/Settings")
 
 const DAY := Color(0.84, 0.78, 0.74)
-const NIGHT := Color(0.36, 0.38, 0.56)
+const NIGHT := Color(0.56, 0.58, 0.84)
 
 const CLAUDE_FM := "https://claude.fm"
 
@@ -74,7 +74,7 @@ func _process(_dt: float) -> void:
 
 
 func _cam_target() -> Vector2:
-	return Vector2(128, clampf(player.position.y - 30.0, 108.0, 148.0))
+	return Vector2(128, 130)   # the whole room fits the 480x270 screen
 
 
 func interact(area: Area2D) -> void:
@@ -112,7 +112,7 @@ func _claude_fm() -> void:
 			print("would open ", CLAUDE_FM)
 		fm_on = true
 		settings.music.stream_paused = true
-		dialog.open(PackedStringArray(["Радио ловит волну. Где-то играет тёплый лоу-фай.", "Анзу: Музыка! Пико бы понравилось."]))
+		dialog.open(PackedStringArray(["Радио ловит волну. Где-то играет тёплый лоу-фай.", "Анзу|happy: Музыка! Пико бы понравилось."]))
 	else:
 		if not await confirm.ask("Выключить Claude FM?", "Вкладку в браузере закрой сам"):
 			return
@@ -150,16 +150,24 @@ func _nap() -> void:
 	player.facing = "left"
 	save()
 	await _fade(0.0, 0.5)
-	dialog.open(PackedStringArray(["Анзу: Ой... Анзу уснула?", "За окном уже стемнело."]) if night
-		else PackedStringArray(["Анзу: Утро! Доброе утро, Рыжик!", "Сквозь окно пробивается тёплый свет."]))
+	dialog.open(PackedStringArray(["Анзу|shy: Ой... Анзу уснула?", "За окном уже стемнело."]) if night
+		else PackedStringArray(["Анзу|happy: Утро! Доброе утро, Рыжик!", "Сквозь окно пробивается тёплый свет."]))
 	await dialog.finished
 
 
 func _apply_time(is_night: bool) -> void:
 	night = is_night
+	var icon: TextureRect = get_node_or_null("UI/Hud/Left/TimeIcon")
+	if icon:
+		icon.texture = load("res://art/ui_moon.png" if night else "res://art/ui_sun.png")
+		$UI/Hud/Left/TimeLabel.text = "Вечер" if night else "День"
 	tint.color = NIGHT if night else DAY
 	window_light.energy = 0.0 if night else 0.2
-	night_glass.color.a = 0.78 if night else 0.0
+	night_glass.color.a = 0.0                          # the window shows the living sky now
+	var sky: Control = get_node_or_null("WindowSky")
+	if sky:
+		sky.set_tod(0.82 if night else 0.5)
+		sky.cloud_amount = 0.3 if night else 0.5
 	dust.emitting = not night
 	stove.base_energy = 0.95 if night else 0.5
 
